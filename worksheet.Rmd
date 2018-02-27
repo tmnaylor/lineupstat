@@ -31,9 +31,9 @@ print(wdiag_ratio(vvec, yvec, 4))
 ```{r}
 #Tredoux diagnosticity ratio calculated from vector/list
 
-diag_ratio_T <- function(vec1, vec2, x){
-a <- (sum(vec1 == x)+0.5)/((length(vec1)+1)+0.5)
-b <-(sum(vec2 == x)+0.5)/((length(vec2)+2)+0.5)
+diag_ratio_T <- function(vec1, vec2, x, t){
+a <- (sum(vec1 == x)+0.5)/(t+1.5)
+b <-(sum(vec2 == x)+0.5)/(t+2.5)
 c <- a/b
 }
 
@@ -52,14 +52,17 @@ var_diag_ratio <- function(vec1, vec2, x){
 }
 
 ratio_weight <- function(vec1, vec2, x){
-    a <- sum(vec1==x)*sum(vec2==x)*
-        (sum(length(vec1)+1))*(sum(length(vec2)+2))
-    b <- 
+    a <- sum(vec1==x)*sum(vec2==x)
+    b <- sum(length(vec1)+1)*sum(length(vec2)+2)
+    c <- sum(vec1==x)*sum(vec2 !=x)*sum(length(vec1)+1)
+    d <- sum(vec2==x)*sum(vec1 !=x)*sum(length(vec2)+2)
+    e <- (a*b)/(c+d)
 }
 ```
 
 ```{r}
-sum(length(yvec)+1)
+
+
 ```
 
 
