@@ -43,26 +43,22 @@ c <- a/b
 #VARIANCE OF DIAGNOSTICITY RATIO
 ```{r}
 #Create vectors
-var_diag_ratio <- function(vec1, vec2, x){
+var_diag_ratio <- function(vec1, vec2, x, t){
     a <- sum(vec1!= x)
-    b <- (sum(vec1 == x))*(length(vec1)+1)
+    b <- (sum(vec1 == x))*(t+1)
     c <- sum(vec2 != x)
-    d <- (sum(vec2 == x))*(length(vec2)+2)
+    d <- (sum(vec2 == x))*(t+2)
     e <- (a/b)+(c/d)
 }
 
 ratio_weight <- function(vec1, vec2, x){
     a <- sum(vec1==x)*sum(vec2==x)
-    b <- sum(length(vec1)+1)*sum(length(vec2)+2)
-    c <- sum(vec1==x)*sum(vec2 !=x)*sum(length(vec1)+1)
-    d <- sum(vec2==x)*sum(vec1 !=x)*sum(length(vec2)+2)
+    b <- sum(length(vec1)+1)*sum(t+2)
+    c <- sum(vec1==x)*sum(vec2 !=x)*sum(t+1)
+    d <- sum(vec2==x)*sum(vec1 !=x)*sum(t+2)
     e <- (a*b)/(c+d)
 }
 ```
 
-```{r}
-
-
-```
 
 
