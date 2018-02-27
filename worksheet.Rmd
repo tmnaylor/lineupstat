@@ -6,12 +6,12 @@ output: html_notebook
 ```{r}
 #Creating vector 1
 vvec <- round(runif(100,1,6)) #Present lineup
-vvec <- vvec[vvec %in% 1:6]
+vvec <- vvec[vvec %in% 0:6]
 ltab <- table(vvec)
 
 #Creating vector 2
 yvec <- round(runif(100,1,6)) #Absent lineup
-yvec <- yvec[yvec %in% 1:6]
+yvec <- yvec[yvec %in% 0:6]
 ztab <- table(yvec)
 ```
 
@@ -19,15 +19,18 @@ ztab <- table(yvec)
 #Wells diagnosticity ratio calculated from vector/list
 #Arguments: 2 vectors containing IDs from present/absent parade, suspect index
 #vec 1: present, vec 2: absent. Must contain same suspect ID
+#x = suspect ID, t = total number lineup choices
 
-diag_ratio_W <- function(vec1, vec2, x){
-a <- sum(vec1 == x)/(length(vec1)+1)
-b <-sum(vec2 == x)/(length(vec2)+2)
+diag_ratio_W <- function(vec1, vec2, x, t){
+a <- sum(vec1 == x)/(t+1)
+b <-sum(vec2 == x)/(t+2)
 c <- a/b
 }
 
-print(wdiag_ratio(vvec, yvec, 4))
+print(diag_ratio_W(vvec, yvec, 4, 60))
 ```
+
+
 ```{r}
 #Tredoux diagnosticity ratio calculated from vector/list
 
@@ -51,14 +54,41 @@ var_diag_ratio <- function(vec1, vec2, x, t){
     e <- (a/b)+(c/d)
 }
 
-ratio_weight <- function(vec1, vec2, x){
+#weight for each ratio
+ratio_weight <- function(vec1, vec2, x, t){
     a <- sum(vec1==x)*sum(vec2==x)
     b <- sum(length(vec1)+1)*sum(t+2)
     c <- sum(vec1==x)*sum(vec2 !=x)*sum(t+1)
     d <- sum(vec2==x)*sum(vec1 !=x)*sum(t+2)
     e <- (a*b)/(c+d)
 }
+
 ```
 
+```{r}
+#Making df
+
+A <-  round(runif(100,1,6)) #Present 
+A <- A[A %in% 0:6]
+
+B <-  round(runif(100,1,6)) #Absent 
+B <- B[B %in% 0:6]
+
+C <-  round(runif(100,1,6)) #Present 
+C <- C[C %in% 0:6]
+
+D <-  round(runif(100,1,6)) #Absent
+D <- D[D %in% 0:6]
+
+E <-  round(runif(100,1,6)) #Present 
+E <- E[E %in% 0:6]
+
+F <-  round(runif(100,1,6)) #Absent
+F <- F[F %in% 0:6]
+
+df <- cbind(A, B, C, D, E, F)
+df <- as.data.frame(df)
+
+```
 
 
