@@ -1,33 +1,32 @@
 ---
-title: "Worksheet 2"
+title: "Worksheet 3"
 output: html_notebook
 ---
-
+#Prelim: Make testing dataframes
 ```{r}
-#Making test df
+#Making test df1 (present)
 
-A <-  round(runif(100,1,6)) #Present 
+A <-  round(runif(100,1,6)) 
 
-B <-  round(runif(100,1,6)) #Absent 
+B <-  round(runif(100,1,6)) 
 
-C <-  round(runif(100,1,6)) #Present 
+C <-  round(runif(100,1,6)) 
 
-D <-  round(runif(100,1,6)) #Absent
+D <-  round(runif(100,1,6)) 
 
-E <-  round(runif(100,1,6)) #Present 
+E <-  round(runif(100,1,6))  
 
-F <-  round(runif(100,1,6)) #Absent
+F <-  round(runif(100,1,6)) 
 
 df1 <- cbind(A, B, C, D, E, F)
 df1 <- as.data.frame(df1)
 rm(A, B, C, D, E, F)
 
+#Making vector of suspect positions for df1
 pos1 <- c(1, 2, 3, 4, 5, 6)
 
+#Making test df2 (absent)
 
-```
-
-```{r}
 A <-  round(runif(100,1,6)) #Present 
 
 B <-  round(runif(100,1,6)) #Absent 
@@ -44,8 +43,12 @@ df2 <- cbind(A, B, C, D, E, F)
 df2 <- as.data.frame(df2)
 rm(A, B, C, D, E, F)
 
+#Making vector of suspect positions for df2
 pos2 <- c(1, 2, 3, 4, 5, 6)
+
 ```
+
+#Step 1: Get parameters for all lineups
 
 ```{r}
 diag_param <- function(df1, df2, pos1, pos2){
@@ -70,54 +73,86 @@ diag_param <- function(df1, df2, pos1, pos2){
     }
     return(diagdf)
 }
-  
-    
-z <- diag_param(df1, df2, pos1, pos2)
+
+linedf <- diag_param(df1, df2, pos1, pos2)
 
 ```
 
+#Step 2: Get ln(d) for each pair of lineups
 ```{r}
-#Computing ln(d) for k lineups
-#Needs df of diagnosticity parameters --> get using helper fx
 ln_diag_ratio <- function(df){
     d<- (df$n11+0.5/((df$n11+df$n21)+0.5))/
-                         (df$n12+0.5/((df$n12+df$n22)+0.5))
+        (df$n12+0.5/((df$n12+df$n22)+0.5))
     lnd <- log(d)
-    lnd <- as.data.frame(lnd)
-
-    return(lnd)
+    ratio <- as.data.frame(cbind(d, lnd))
+    
+    return(ratio)
 }
 
-
+ratio <- ln_diag_ratio(linedf)
 ```
 
+#Step 3: Get var(lnd) for each diagnosticity ratio
 
 ```{r}
-#Function to compute variance of ln(d) for k lineups
 var_lnd <- function(df){
     var <- (df$n21/(df$n11+(df$n11+df$n21)))+(df$n22/(df$n12+(df$n12+df$n22)))
     var <- as.data.frame(var)
     return(var)
 }
 
-
-b <- var_lnd(z)
+var <- var_lnd(linedf)
 ```
 
-```{r}
-#Function to compute weights for n diagnosticity ratios from k lineups
+#Step 4: Get wi for each diagnosticity ratio
 
+```{r}
 d_weights <- function(df){
     numerator <- df$n11*df$n12*(df$n11+df$n21)*(df$n12+df$n22)
     denominator <- df$n11*df$n22*(df$n11+df$n21)+
-                   df$n12*df$n21*(df$n12+df$n22)
+        df$n12*df$n21*(df$n12+df$n22)
     wi <- numerator/denominator
     wi <- as.data.frame(wi)
     return(wi)
     
 }
 
+wi <- d_weights(linedf)
 
+```
+
+#Step 5: Combine vectors for lnd, var(lnd) and wi into one df
+```{r}
+param2 <- cbind(ratio, var, wi)
+
+```
+#Step 6: Get pooled estimator for set of n diagnosticity ratios
+
+```{r}
+d_bar <- function(df){
+    numerator <- sum(df$wi*df$lnd)
+    denominator <- sum(df$wi)
+    d_bar <- exp(numerator/denominator)
+    return(d_bar)
+}
+
+d_bar <- d_bar(param2)
+```
+
+#Step 7: Get chi squared value
+```{r}
+chi_diag <- function(df, d_bar){
+    q <- sum(((df$lnd-log(d_bar))^2)/(df$var))
+    return(q)
+}
+
+q <- chi_diag(param2, d_bar)
+    
+```
+
+#Step 8: Get significance value, given chi, df and desired alpha
+```{r}
+pchisq(q, 5, lower.tail = T)
 
 ```
 
