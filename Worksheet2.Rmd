@@ -1,0 +1,124 @@
+---
+title: "Worksheet 2"
+output: html_notebook
+---
+
+```{r}
+#Making test df
+
+A <-  round(runif(100,1,6)) #Present 
+
+B <-  round(runif(100,1,6)) #Absent 
+
+C <-  round(runif(100,1,6)) #Present 
+
+D <-  round(runif(100,1,6)) #Absent
+
+E <-  round(runif(100,1,6)) #Present 
+
+F <-  round(runif(100,1,6)) #Absent
+
+df1 <- cbind(A, B, C, D, E, F)
+df1 <- as.data.frame(df1)
+rm(A, B, C, D, E, F)
+
+pos1 <- c(1, 2, 3, 4, 5, 6)
+
+
+```
+
+```{r}
+A <-  round(runif(100,1,6)) #Present 
+
+B <-  round(runif(100,1,6)) #Absent 
+
+C <-  round(runif(100,1,6)) #Present 
+
+D <-  round(runif(100,1,6)) #Absent
+
+E <-  round(runif(100,1,6)) #Present 
+
+F <-  round(runif(100,1,6)) #Absent
+
+df2 <- cbind(A, B, C, D, E, F)
+df2 <- as.data.frame(df2)
+rm(A, B, C, D, E, F)
+
+pos2 <- c(1, 2, 3, 4, 5, 6)
+```
+
+```{r}
+
+#Helper function for creating df of parameters out of df of raw data
+df_param <- function(df, pos){
+    linedf <- as.data.frame(matrix(ncol = 2, 
+                                   nrow = length(df)))
+    
+    for (i in 1:length(df)){
+        linedf[i, 1]= sum(df[i] == pos[,i])
+        linedf[i, 2] = sum(df[i] != pos[,i])
+}}
+
+
+
+
+b <- df_param(df, pos
+
+df[3, 2]
+```
+```{r}
+df_param1 <- function(df){
+    linedf1 <- as.data.frame(matrix(ncol = 1, 
+                                   nrow = length(df)))
+    
+    for (i in 1:ncol(df)){
+        linedf1[i,]= sum(df[i])
+        
+        
+    }
+    return(linedf1)
+    }
+
+d <- df_param1(df)
+
+```
+
+```{r}
+df_param2 <- function(df, pos){
+    linedf1 <- as.data.frame(matrix(ncol = 2, 
+                                   nrow = length(df)))
+    
+    for (i in 1:ncol(df)){
+        linedf1[i,1]= sum(df[i] == pos[i])
+        linedf1[i,2] = sum(df[i] != pos[i])
+        
+    }
+    return(linedf1)
+}
+
+a <- df_param2(df1, pos1)
+
+b <- df_param2(df2, pos2)
+```
+
+```{r}
+diag_param <- function(df1, df2, pos1, pos2){
+    diagdf <- as.data.frame(matrix(ncol = 4, 
+                                    nrow = length(df)))
+    
+    for (i in 1:ncol(df1)){
+        diagdf[i,1]= sum(df1[i] == pos1[i])
+        diagdf[i,2] = sum(df1[i] != pos1[i])
+        
+     for (i in 1:ncol(df2)){
+        diagdf[i,3]= sum(df2[i] == pos2[i])
+        diagdf[i,4] = sum(df2[i] != pos2[i])    
+        
+    }
+    return(diagdf)
+    }
+}
+    
+c <- diag_param(df1, df2, pos1, pos2)
+```
+
