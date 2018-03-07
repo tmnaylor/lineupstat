@@ -21,6 +21,7 @@ diag_param <- function(df1, df2, pos1, pos2){
         diagdf2[i,2] = sum(df2[i] != pos2[i]) 
         
         diagdf <- cbind(diagdf1, diagdf2)
+        names(diagdf) <- c("n11", "n21", "n12", "n22")
         
     }
     return(diagdf)
