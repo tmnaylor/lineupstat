@@ -2,93 +2,91 @@
 title: "Worksheet"
 output: html_notebook
 ---
-
+#Making test data
 ```{r}
 #Creating vector 1
 vvec <- round(runif(100,1,6)) #Present lineup
-vvec <- vvec[vvec %in% 0:6]
+vvec <- vvec[vvec %in% 1:6]
 ltab <- table(vvec)
 
 #Creating vector 2
 yvec <- round(runif(100,1,6)) #Absent lineup
-yvec <- yvec[yvec %in% 0:6]
+yvec <- yvec[yvec %in% 1:6]
 ztab <- table(yvec)
-```
 
-```{r}
-#Wells diagnosticity ratio calculated from vector/list
-#Arguments: 2 vectors containing IDs from present/absent parade, suspect index
-#vec 1: present, vec 2: absent. Must contain same suspect ID
-#x = suspect ID, t = total number lineup choices
-
-diag_ratio_W <- function(vec1, vec2, x, t){
-a <- sum(vec1 == x)/(t+1)
-b <-sum(vec2 == x)/(t+2)
-c <- a/b
-}
-
-print(diag_ratio_W(vvec, yvec, 4, 60))
-```
-
-
-```{r}
-#Tredoux diagnosticity ratio calculated from vector/list
-
-diag_ratio_T <- function(vec1, vec2, x, t){
-a <- (sum(vec1 == x)+0.5)/(t+1.5)
-b <-(sum(vec2 == x)+0.5)/(t+2.5)
-c <- a/b
-}
-
-```
-
-
-#VARIANCE OF DIAGNOSTICITY RATIO
-```{r}
-#Create vectors
-var_diag_ratio <- function(vec1, vec2, x, t){
-    a <- sum(vec1!= x)
-    b <- (sum(vec1 == x))*(t+1)
-    c <- sum(vec2 != x)
-    d <- (sum(vec2 == x))*(t+2)
-    e <- (a/b)+(c/d)
-}
-
-#weight for each ratio
-ratio_weight <- function(vec1, vec2, x, t){
-    a <- sum(vec1==x)*sum(vec2==x)
-    b <- sum(length(vec1)+1)*sum(t+2)
-    c <- sum(vec1==x)*sum(vec2 !=x)*sum(t+1)
-    d <- sum(vec2==x)*sum(vec1 !=x)*sum(t+2)
-    e <- (a*b)/(c+d)
-}
-
-```
-
-```{r}
-#Making df
+#Making test df
 
 A <-  round(runif(100,1,6)) #Present 
-A <- A[A %in% 0:6]
 
 B <-  round(runif(100,1,6)) #Absent 
-B <- B[B %in% 0:6]
 
 C <-  round(runif(100,1,6)) #Present 
-C <- C[C %in% 0:6]
 
 D <-  round(runif(100,1,6)) #Absent
-D <- D[D %in% 0:6]
 
 E <-  round(runif(100,1,6)) #Present 
-E <- E[E %in% 0:6]
 
 F <-  round(runif(100,1,6)) #Absent
-F <- F[F %in% 0:6]
 
 df <- cbind(A, B, C, D, E, F)
 df <- as.data.frame(df)
+rm(A, B, C, D, E, F)
+```
+
+```{r}
+my_mean <- function(df1){
+    df2 <- NULL
+    for (i in seq(1, length(df), by =2)){
+    df2[i] <- mean(df1[i])
+    }
+}
 
 ```
 
+```{r}
+myfun3 <- function(df, x, t)
+{
+    diag_ratio_T <- function(vec1, vec2, x, t){
+    a <- (sum(vec1 == x)+0.5)/(t+0.5)
+    b <-(sum(vec2 == x)+0.5)/(t+0.5)
+    c <- a/b
+    }
+    
+    v <- NULL
+for (i in 1:nrow(df){
+    v[i] <- diag_ratio_T(df[i], df[i+1], x, t)
+    i = i+1
+}
+    return(x)
+}
+
+myfun3(df, 4, t)
+```
+
+
+
+
+
+
+
+
+
+```{r}
+myfun3 <- function(df, x, t)
+{
+    diag_ratio_T <- function(vec1, vec2, x, t){
+    a <- (sum(vec1 == x)+0.5)/(t+1.5)
+    b <-(sum(vec2 == x)+0.5)/(t+2.5)
+    c <- a/b
+    }
+    
+    v <- NULL
+for (i in seq(1, length(df), 2)){
+    v <- diag_ratio_T(df[2i+1], df[2i+2], x, t)
+}
+    return(x)
+}
+
+myfun3(df, 4, t)
+```
 
