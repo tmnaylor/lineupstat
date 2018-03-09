@@ -156,3 +156,4 @@ pchisq(q, 5, lower.tail = T)
 
 ```
 
+##Still needs: Functions for bootstrapped estimates
