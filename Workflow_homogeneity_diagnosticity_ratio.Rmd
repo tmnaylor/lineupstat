@@ -157,3 +157,5 @@ pchisq(q, 5, lower.tail = T)
 ```
 
 ##Still needs: Functions for bootstrapped estimates
+
+##Will need to get different CIs for each? Or is it only For the p value....
