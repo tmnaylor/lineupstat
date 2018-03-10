@@ -56,7 +56,7 @@ diag_param <- function(df1, df2, pos1, pos2){
                                     nrow = length(df1)))
     
     for (i in 1:ncol(df1)){
-        diagdf1[i, 1]= sum(df1[i] == pos1[i])
+        diagdf1[i,1]= sum(df1[i] == pos1[i])
         diagdf1[i,2] = sum(df1[i] != pos1[i])
         
         diagdf2 <- as.data.frame(matrix(ncol = 2, 
@@ -152,7 +152,40 @@ q <- chi_diag(param2, d_bar)
 
 #Step 8: Get significance value, given chi, df and desired alpha
 ```{r}
-pchisq(q, 5, lower.tail = T)
+# I think you need to parameterise the df (df = 5 below)
+# since we will want an overall function that computes dbar, the di, and
+# the chi and p(chi)
+# We need bootstrap estimates around each di, dbar, and the p value
+pchisq(q, ncol(df1)-1, lower.tail = F)
+
+```
+# Try another combination
+
+#Step 8: Get significance value, given chi, df and desired alpha
+```{r better_to_name}
+# Some sample values for lineups
+A <- c(3,2,4,5,4,29)
+B <- c(2,3,6,4,3,13)
+C <- c(20, 19, 21, 19, 18, 23)
+adf1 <- cbind(A,B,C)
+apos1 <- c(6, 6, 6)
+
+D <- c(13,12,14,15,14,19)
+E <- c(2,3,6,4,3,6)
+F <- c(21, 18, 22, 17, 16, 22)
+adf2 <- cbind(D,E,F)
+apos2 <- c(6, 6, 6)
+
+linedf1 <- diag_param(adf1, adf2, apos1, apos2)
+# something goes wrong here, check this
+
+pchisq(q, ncol(df1)-1, lower.tail = F)
 
 ```
 
+
+
+
+##Still needs: Functions for bootstrapped estimates
+
+##Will need to get different CIs for each? Or is it only For the p value....

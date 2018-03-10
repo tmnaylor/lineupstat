@@ -1,4 +1,4 @@
-#Function to compute weights for k/2 diagnosticity ratios in k lineup pairs
+#Function to compute weights for diagnosticity ratios in k lineup pairs
 
 d_weights <- function(df){
     numerator <- df$n11*df$n12*(df$n11+df$n21)*(df$n12+df$n22)
