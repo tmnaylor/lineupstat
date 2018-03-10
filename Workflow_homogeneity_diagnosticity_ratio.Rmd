@@ -164,22 +164,44 @@ pchisq(q, ncol(df1)-1, lower.tail = F)
 #Step 8: Get significance value, given chi, df and desired alpha
 ```{r better_to_name}
 # Some sample values for lineups
-A <- c(3,2,4,5,4,29)
-B <- c(2,3,6,4,3,13)
-C <- c(20, 19, 21, 19, 18, 23)
-adf1 <- cbind(A,B,C)
-apos1 <- c(6, 6, 6)
+A1 <- round(runif(67,1,6))
+A2 <- round(runif(67,1,6))
+A3 <- round(runif(67,1,6))
+adf1 <- cbind(A1,A2,A3)
+apos1 <- c(1, 3, 6)
 
-D <- c(13,12,14,15,14,19)
-E <- c(2,3,6,4,3,6)
-F <- c(21, 18, 22, 17, 16, 22)
-adf2 <- cbind(D,E,F)
-apos2 <- c(6, 6, 6)
+B1 <- round(runif(70,1,6))
+B2 <- round(runif(70,1,6))
+B3 <- round(runif(70,1,6))
+adf2 <- cbind(B1, B2, B3)
+apos2 <- c(4, 6, 2)
 
 linedf1 <- diag_param(adf1, adf2, apos1, apos2)
 # something goes wrong here, check this
 
-pchisq(q, ncol(df1)-1, lower.tail = F)
+
+# Some sample values for lineups
+A1 <- round(runif(67,1,6))
+A2 <- round(runif(67,1,6))
+A3 <- round(runif(67,1,6))
+adf1 <- data.frame(cbind(A1,A2,A3))
+apos1 <- c(1, 3, 6)
+
+B1 <- round(runif(67,1,6))
+B2 <- round(runif(67,1,6))
+B3 <- round(runif(67,1,6))
+adf2 <- data.frame(cbind(B1, B2, B3))
+apos2 <- c(4, 6, 2)
+
+# start overall function here
+linedf1 <- diag_param(adf1, adf2, apos1, apos2)
+par1 <- ln_diag_ratio(linedf)
+par2 <- var_lnd(linedf1)
+par3 <- d_weights(linedf1)
+par4 <- cbind(par1, par2, par3)
+par5 <- chi_diag(par4, d_bar(par4))
+pchisq(par5, ncol(linedf1)-1, lower.tail = F)
+# end overall function here
 
 ```
 
