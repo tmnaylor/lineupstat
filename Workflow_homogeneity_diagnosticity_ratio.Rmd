@@ -49,7 +49,7 @@ pos2 <- c(1, 2, 3, 4, 5, 6)
 ```
 
 #Step 1: Get parameters for all lineups
-#Function takes 2 lists and returns a df
+#Function takes 2 lists and returns a df of parameters
 
 ```{r}
 diag_param <- function(list1, list2, pos1, pos2){
