@@ -49,23 +49,25 @@ pos2 <- c(1, 2, 3, 4, 5, 6)
 ```
 
 #Step 1: Get parameters for all lineups
+#Function takes 2 lists and returns a df
 
 ```{r}
-diag_param <- function(df1, df2, pos1, pos2){
+diag_param <- function(list1, list2, pos1, pos2){
     diagdf1 <- as.data.frame(matrix(ncol = 2, 
-                                    nrow = length(df1)))
+                                    nrow = length(list1)))
     
-    for (i in 1:ncol(df1)){
-        diagdf1[i,1]= sum(df1[i] == pos1[i])
-        diagdf1[i,2] = sum(df1[i] != pos1[i])
+    for (i in 1:length(list1)){
+        diagdf1[i,1]= sum(list1[[i]] == pos1[i])
+        diagdf1[i,2] = sum(list1[[i]] != pos1[i])
         
-        diagdf2 <- as.data.frame(matrix(ncol = 2, 
-                                        nrow = length(df2)))
+        
     }
     
-    for (i in 1:ncol(df2)){
-        diagdf2[i,1]= sum(df2[i] == pos2[i])
-        diagdf2[i,2] = sum(df2[i] != pos2[i]) 
+    diagdf2 <- as.data.frame(matrix(ncol = 2, 
+                                        nrow = length(list2)))
+    for (i in 1:length(list2)){
+        diagdf2[i,1]= sum(list2[[i]] == pos2[i])
+        diagdf2[i,2] = sum(list2[[i]] != pos2[i]) 
         
         diagdf <- cbind(diagdf1, diagdf2)
         names(diagdf) <- c("n11", "n21", "n12", "n22")
@@ -74,7 +76,7 @@ diag_param <- function(df1, df2, pos1, pos2){
     return(diagdf)
 }
 
-linedf <- diag_param(df1, df2, pos1, pos2)
+linedf <- diag_param(list1, list2, pos1, pos2)
 
 ```
 
