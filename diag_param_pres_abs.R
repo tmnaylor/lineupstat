@@ -10,7 +10,7 @@
 #pos_abs = vector of suspect positions in target absent lineups
 #position of lineups to be compared must correspond across ta/tp lists
 
-diag_param <- function(list_pres, list_abs, pos_pres, pos_abs){
+diag_param <- function(list1, list2, pos1, pos2){
     diagdf1 <- as.data.frame(matrix(ncol = 2, 
                                     nrow = length(list1)))
     
@@ -29,7 +29,7 @@ diag_param <- function(list_pres, list_abs, pos_pres, pos_abs){
         
         diagdf <- cbind(diagdf1, diagdf2)
         names(diagdf) <- c("n11", "n21", "n12", "n22")
-        
+        diagdf = as.data.frame(sapply(diagdf, as.numeric))
     }
     return(diagdf)
 }
