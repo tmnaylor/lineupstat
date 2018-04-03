@@ -17,4 +17,4 @@ esize_m_boot <- function (linevec, d, printarg=FALSE){
             "            adj Tredoux, 1998) = ", esize_ma, "\n")
     }
     esize_ma
-}
+} 

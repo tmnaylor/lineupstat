@@ -9,4 +9,4 @@ allprop_boot <- function(linevec, d=d, susp_pos){
         propvec[i,]=lineup_prop_pos_vec(linevec[d], susp_pos[i])
     }
     return(propvec)
-}
+} 

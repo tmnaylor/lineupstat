@@ -8,4 +8,4 @@ allprop <- function(linevec, susp_pos){
         propvec[i,]=lineup_prop_pos_vec(linevec, susp_pos[i])
     }
     return(propvec)
-}
+} 
