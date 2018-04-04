@@ -42,7 +42,7 @@ allprop <- function(linevec){
 #Function for computing bootstrapped cis of proportion for each lineup member
 #Inputs - vector of lineup choices, vector of lineup positions
 lineup_boot_allprop <- function(avec, pos){
-    z <- map(pos,~boot(avec, lineup_prop_b, susp_pos = .x, R = 1000) %>% 
+    z <- map(pos,~boot(avec, lineup_prop_boot, susp_pos = .x, R = 1000) %>% 
                  boot.ci(type = "bca")) %>% 
         map(extract, "bca") %>% 
         map_df(extract,"bca")
