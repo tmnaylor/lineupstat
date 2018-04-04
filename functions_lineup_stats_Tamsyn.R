@@ -44,15 +44,15 @@ allprop <- function(linevec){
 lineup_boot_allprop <- function(avec, pos){
     z <- map(pos,~boot(avec, lineup_prop_boot, susp_pos = .x, R = 1000) %>% 
                  boot.ci(type = "bca")) %>% 
-        map(extract, "bca") %>% 
-        map_df(extract,"bca")
+        map(magrittr::extract, "bca") %>% 
+        map_df(magrittr::extract,"bca")
     
     z2 <-  matrix(ncol = 6,nrow = 5, z$bca) %>% 
         data.frame() %>% 
         slice(4:5)
-    ci <- as.data.frame(t(ci))
+    ci <- as.data.frame(t(z2))
     
-    return(tci)
+    return(ci)
 }
 
 # Function for computing Effective Size (Malpass, 1981)
