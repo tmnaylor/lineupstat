@@ -60,7 +60,7 @@ lineup_boot_allprop <- function(avec, pos){
 es_foil_count <- function(linevec, susp_pos){
     ci <- lineup_boot_allprop(linevec, susp_pos)
     k <- 1/length(susp_pos)
-    ci_count <- cbind(tci[,1] <= k & tci[,2] >= k)
+    ci_count <- cbind(ci[,1] <= k & ci[,2] >= k)
     print(sum(ci_count == TRUE))
 }
 
