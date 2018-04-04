@@ -4,7 +4,7 @@
 # The function needs to have the member position declared
 #Takes vector as input
 
-lineup_prop_pos_vec <- function(linevec, susp_pos){
+lineup_prop_vec <- function(linevec, susp_pos){
     sum(linevec == susp_pos)/length(linevec)
 }
 
@@ -12,7 +12,7 @@ lineup_prop_pos_vec <- function(linevec, susp_pos){
 #Takes vector of lineup choices and member position (single number) as inputs
 #E.g. boot(linevec, lineup_prop_pos_boot, 2, R = 1000)
 #Needs to be labelled more clearly
-lineup_prop_pos_boot <- function(linevec, d=d,  susp_pos){
+lineup_prop_boot <- function(linevec, d=d,  susp_pos){
     sum(linevec[d] == susp_pos)/length(linevec)
 }
 
@@ -37,6 +37,31 @@ allprop <- function(linevec){
         propvec[i,]=lineup_prop_pos_vec(linevec, susp_pos[i])
     }
     return(propvec)
+}
+
+#Function for computing bootstrapped cis of proportion for each lineup member
+#Inputs - vector of lineup choices, vector of lineup positions
+lineup_boot_allprop <- function(avec, pos){
+    z <- map(pos,~boot(avec, lineup_prop_b, susp_pos = .x, R = 1000) %>% 
+                 boot.ci(type = "bca")) %>% 
+        map(extract, "bca") %>% 
+        map_df(extract,"bca")
+    
+    z2 <-  matrix(ncol = 6,nrow = 5, z$bca) %>% 
+        data.frame() %>% 
+        slice(4:5)
+    ci <- as.data.frame(t(ci))
+    
+    return(tci)
+}
+
+# Function for computing Effective Size (Malpass, 1981)
+# counting foils who fall within the CI for chance guessing
+es_foil_count <- function(linevec, susp_pos){
+    ci <- lineup_boot_allprop(linevec, susp_pos)
+    k <- 1/length(susp_pos)
+    ci_count <- cbind(tci[,1] <= k & tci[,2] >= k)
+    print(sum(ci_count == TRUE))
 }
 
 #Function to compute n11/12 and n21/22 from df of present/absent lineup choices
