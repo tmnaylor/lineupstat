@@ -10,8 +10,6 @@
 # but not the former
 # For later error checking, pos values can only take on certain values
 # i.e. max = number of lineup members
-
-#OLD FX. IGNORE
 diag_param <- function(df, pos){
     diagdf <- as.data.frame(matrix(ncol = 2, 
                                    nrow = length(df)))

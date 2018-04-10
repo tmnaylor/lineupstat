@@ -284,18 +284,6 @@ boot0975(.2,sum(ltab))
 
 
 
-# Function for comparing two effective sizes (Tredoux, 1998)
-
-
-
-# Function for computing Functional Size (Wells, 1979)
-# with both normal theory CI and bootstrap CI
-
-
-
-
-
-
 
 # Master function for assessing bias of a lineup
 
