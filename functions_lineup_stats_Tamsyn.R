@@ -193,7 +193,6 @@ chi_diag <- function(df, d_bar){
 }
 
 #Base function for computing bootstrapped effective size
-
 esize_m_boot <- function (linevec, d, printarg=FALSE){
     linetable <- table(linevec[d])
     k <- length(linetable)
