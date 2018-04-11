@@ -229,3 +229,18 @@ esize_m_boot <- function (linevec, d, printarg=FALSE){
     esize_ma
 }  
 
+#Function for getting bootstrapped data from a list of multiple vectors
+#Still needs work
+
+gen_boot_samples_list <- function (list, bootno){
+    lineup_boot_samples <- NULL
+    for (i in 1:length(list)){
+        
+        names_a <- rep("sample_",bootno)
+        names_b <- as.character(1:bootno)
+        bootno %>% rerun(sample(list[[i]], length(list[[i]]), replace = TRUE))  -> x 
+        names(x) <- paste(names_a,names_b,sep = "")
+        lineup_boot_samples[[i]] <- map_df(x, magrittr::extract, c(1:length(list[[i]])))
+    }
+    return(lineup_boot_samples)
+}
