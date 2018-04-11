@@ -269,3 +269,21 @@ diag_param_boot <- function(lineup_pres_list, lineup_abs_list, pos_pres, pos_abs
     }
     return(diagdf)
 }
+
+#Function for computing bootstrapped homogeneity estimates
+diag_boot_estimates <- function(lineup_pres_list, lineup_abs_list, pos_pres, pos_abs, B){
+    pres_bootdf <- gen_boot_samples_list(lineup_pres_list, B)
+    abs_bootdf <- gen_boot_samples_list(lineup_abs_list, B)
+    linedf <- diag_param_boot(pres_bootdf, abs_bootdf, pos_pres, pos_abs)
+    par1 <- ln_diag_ratio(linedf)
+    par2 <- var_lnd(linedf)
+    par3 <- d_weights(linedf)
+    par4 <- cbind(par1, par2, par3)
+    dbar_boot <- d_bar(par4)
+    par5 <- chi_diag(par4, dbar_boot)
+    cat("Mean diagnosticity ratio:", dbar_boot)
+    cat("\n")
+    cat("Chi-square estimate (q):", par5)
+    cat("\n")
+    cat("Sig:",pchisq(par5, ncol(linedf)-1, lower.tail=F))
+}
