@@ -21,12 +21,13 @@ gen_linevec_table <- function (line_table, nom_size){
 # Function for generating bootstrap samples from a lineup vector
 # created with gen_linevec_table or from a raw vector. Number of
 # bootstrap samples is controlled by argument bootno
+#Had to call magrittr in this fx otherwise it conflicted with fx in tidyr
 gen_boot_samples <- function (linevec, bootno){
     names_a <- rep("sample_",bootno)
     names_b <- as.character(1:bootno)
     bootno %>% rerun(sample(linevec, length(linevec), replace = TRUE))  -> x 
     names(x) <- paste(names_a,names_b,sep = "")
-    lineup_boot_samples <- map_df(x, extract, c(1:length(linevec)))
+    lineup_boot_samples <- map_df(x, magrittr::extract, c(1:length(linevec)))
 }
  
 # names_a <- rep("sample_",100)
