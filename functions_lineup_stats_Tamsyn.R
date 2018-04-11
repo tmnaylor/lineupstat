@@ -287,3 +287,21 @@ diag_boot_estimates <- function(lineup_pres_list, lineup_abs_list, pos_pres, pos
     cat("\n")
     cat("Sig:",pchisq(par6, ncol(linedf)-1, lower.tail=F))
 }
+
+#Alternative method 
+#To get cis for d_bar
+
+#calculate d_bar x times over x vector pairs
+
+#could save each linedf (so if x vector pairs, you'd have x linedfs)
+#you'd use pres_bootdf & abs_bootdf
+#but instead of calculating 1 linedf from all of those
+#you'd calculate one for each lineup pair
+#you'd then get a list of x diag_param dfs
+#calculate d_bar for each
+#use quantile fx to get lower and upper cis
+
+#So, essentially, you'd be applying the master homog fx to each lineup pair
+
+#So, for i in list, apply homog diag fx
+#Could use apply/map functions?"
