@@ -7,7 +7,8 @@
 #'                   the target was absent
 #'@param pos_pres Target position in TP lineup. Must be declared by user
 #'@param pos_abs Target position in TA lineup. Must be declared by user
-#'
+#'@references Tredoux, C. G. (1998). Statistical inference on measures of lineup 
+#'            fairness. Law and Human Behavior, 22(2), 217-237.
 #'@examples
 #'lineup_pres <- round(runif(100, 1, 6))
 #'lineup_abs <- round(runif(100, 1, 6))

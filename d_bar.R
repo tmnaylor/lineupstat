@@ -3,6 +3,8 @@
 #'Function for computing pooled estimator from a set of k diagnosticity ratios
 #'
 #'@param df A dataframe containing: ln(d), variance of ln(d), d weights
+#'@references Tredoux, C. G. (1998). Statistical inference on measures of lineup 
+#'            fairness. Law and Human Behavior, 22(2), 217-237.
 #'@examples
 #'ratio <- ln_diag_ratio(linedf)  
 #'var <- var_lnd(linedf)

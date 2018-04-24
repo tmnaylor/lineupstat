@@ -12,7 +12,9 @@
 #'          n12: Number of mock witnesses who identified the suspect in the target
 #'              absent condition
 #'          n13: Number of mock witnesses who did not identify the suspect in the
-#'              target absent condition
+#'              target absent condition\
+#'@references Tredoux, C. G. (1998). Statistical inference on measures of lineup 
+#'            fairness. Law and Human Behavior, 22(2), 217-237. 
 
 d_weights <- function(linedf){
     numerator   <- linedf$n11*linedf$n12*(linedf$n11+linedf$n21)*

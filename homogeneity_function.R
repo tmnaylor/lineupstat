@@ -13,8 +13,6 @@
 #'         absent condition
 #'
 #'@examples
-#'
-#'
 #'A <-  round(runif(100,1,6))
 #'B <-  round(runif(100,1,6))
 #'C <-  round(runif(100,1,6))

@@ -10,6 +10,7 @@
 #'es_foil_count(lineup_vec, susp_pos)
 #'@references Malpass, R S. (1981). Effective size and defendant bias in eyewitness
 #'            identification lineups. Law and Human Behavior, 5, 299-309.
+#'            
 #'            Tredoux, C. G. (1998). Statistical inference on measures of lineup 
 #'            fairness. Law and Human Behavior, 22(2), 217-237.
 #'

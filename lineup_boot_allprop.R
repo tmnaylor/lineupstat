@@ -13,6 +13,7 @@
 #'@details Function to call when bootstrap resampling using boot function (in package 'boot')
 #'@references Davison,  A.C. & Hinkley,  D.V. (1997). Bootstrap methods and their
 #'            application. Cambridge University Press.
+#'            
 #'            Wells, G. L., Leippe, M. R., & Ostrom, T. M. (1979). Guidelines for
 #'            assessing the fairness of a lineup. Law and Human Behavior, 3(4),
 #'            285-293.

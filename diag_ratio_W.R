@@ -14,9 +14,8 @@
 #'pos_pres <- c(1, 2, 3, 4, 5, 6)
 #'pos_abs <- c(1, 2, 3, 4, 5, 6)
 #'diag_ratio_W(lineup_pres, lineup_abs, pos_pres, pos_abs)
-#'@references Wells, G. L., & Lindsay, R. C. L. (1980).
-#'            On estimating the diagnosticity of eyewitness nonidentifications.
-#'            Psychological Bulletin, 88, 776-784.
+#'@references Wells, G. L., & Lindsay, R. C. L. (1980).On estimating the diagnosticity 
+#'            of eyewitness nonidentifications.Psychological Bulletin, 88, 776-784.
 #'
 #'            Wells, G. L., & Turtle, J. W. (1986). Eyewitness identification:
 #'            The importance of lineup models. Psychological Bulletin, 99, 320-329.
