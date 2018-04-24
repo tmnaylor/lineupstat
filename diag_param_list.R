@@ -30,6 +30,8 @@
 #'         For a lineup pair A that consists of (1)TP lineup and (2)TA lineup:
 #'         A(1) is the first vector in the TP list
 #'         A(2) is the first vector in the TP list
+#'@references Tredoux, C. G. (1998). Statistical inference on measures of lineup 
+#'            fairness. Law and Human Behavior, 22(2), 217-237.
 #'
 diag_param <- function(lineup_pres_list, lineup_abs_list, pos_pres, pos_abs){
   diagdf1 <- as.data.frame(matrix(ncol = 2,
@@ -54,3 +56,5 @@ diag_param <- function(lineup_pres_list, lineup_abs_list, pos_pres, pos_abs){
   }
   return(diagdf)
 }
+
+EDIT THIS! YOU NEED TO INCLUDE A LIST OF POSITIONS, NOT A VECTOR!

@@ -13,7 +13,26 @@
 #'         absent condition
 #'
 #'@examples
-
+#'
+#'
+#'A <-  round(runif(100,1,6))
+#'B <-  round(runif(100,1,6))
+#'C <-  round(runif(100,1,6))
+#'df1 <- cbind(A, B, C)
+#'df1 <- as.data.frame(df1)
+#'lineup_pres_list <- as.list(df1)
+#'pos_pres <- c(1, 2, 3, 4, 5, 6)
+#'
+#'A <-  round(runif(100,1,6))
+#'B <-  round(runif(100,1,6))
+#'C <-  round(runif(100,1,6))
+#'df2 <- cbind(A, B, C)
+#'df2 <- as.data.frame(df2)
+#'lineup_abs_list <- as.list(df2)
+#'pos_abs <- c(1, 2, 3, 4, 5, 6)
+#'
+#'homog_diag(lineup_pres_list, lineup_abs, list, pos_pres, pos_abs)
+#'
 homog_diag <- function(lineup_pres_list, lineup_abs_list, pos_pres, pos_abs){
   linedf <- diag_param(lineup_pres_list, lineup_abs_list, pos_pres, pos_abs)
   par1 <- ln_diag_ratio(linedf)
