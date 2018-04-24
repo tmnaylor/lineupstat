@@ -7,10 +7,10 @@
 #'                        suspect was present
 #'@param lineup_abs_list A list containing k vectors of lineup choices for k lineups, in which the
 #'                       suspect was absent
-#'@param pos_pres A numeric vector indexing lineup member positions for the target
-#'          present condition
-#'@param pos_abs A numeric vector indexing lineup member positions for the target
-#'         absent condition
+#'@param pos_pres A list containing k numeric vectors indexing lineup member positions 
+#'                for the target present condition
+#'@param pos_abs A list containing k numeric vectors indexing lineup member positions 
+#'               for the target absent condition
 #'@returns A dataframe containing:
 #'         n11: Number of mock witnesses who identified the suspect in the target
 #'              present condition
@@ -32,14 +32,43 @@
 #'         A(2) is the first vector in the TP list
 #'@references Tredoux, C. G. (1998). Statistical inference on measures of lineup 
 #'            fairness. Law and Human Behavior, 22(2), 217-237.
+#'@examples
 #'
+#'#Target present data
+#'A <-  round(runif(100,1,6))
+#'B <-  round(runif(70,1,5))
+#'C <-  round(runif(20,1,4)) 
+#'lineup_pos_list <- list(A, B, C)
+#'rm(A, B, C)
+#'
+#'a1 <- c(1, 2, 3, 4, 5, 6)
+#'b1 <- c(1, 2, 3, 4, 5)
+#'c1 <- c(1, 2, 3, 4)
+#'pos_pres <- list(a1, b1, c1)
+#'rm(a1, b1, c1)
+#'
+#'Target absent data
+#'A <-  round(runif(100,1,6))
+#'B <-  round(runif(70,1,5))
+#'C <-  round(runif(20,1,4)) 
+#'lineup_abs_list <- list(A, B, C)
+#'rm(A, B, C)
+#'
+#'a1 <- c(1, 2, 3, 4, 5, 6)
+#'b1 <- c(1, 2, 3, 4, 5)
+#'c1 <- c(1, 2, 3, 4)
+#'pos_abs <- list(a1, b1, c1)
+#'rm(a1, b1, c1)
+#'
+#'diag_param(lineup_pres_list, lineup_abs_list, pos_pres, abs_pres)
+
 diag_param <- function(lineup_pres_list, lineup_abs_list, pos_pres, pos_abs){
   diagdf1 <- as.data.frame(matrix(ncol = 2,
                                   nrow = length(lineup_pres_list)))
 
   for (i in 1:length(lineup_pres_list)){
-    diagdf1[i,1]= sum(lineup_pres_list[[i]] == pos_pres[i])
-    diagdf1[i,2] = sum(lineup_pres_list[[i]] != pos_pres[i])
+    diagdf1[i,1]= sum(lineup_pres_list[[i]] == pos_pres[[i]])
+    diagdf1[i,2] = sum(lineup_pres_list[[i]] != pos_pres[[i]])
 
 
   }
@@ -47,8 +76,8 @@ diag_param <- function(lineup_pres_list, lineup_abs_list, pos_pres, pos_abs){
   diagdf2 <- as.data.frame(matrix(ncol = 2,
                                   nrow = length(lineup_abs_list)))
   for (i in 1:length(lineup_abs_list)){
-    diagdf2[i,1]= sum(lineup_abs_list[[i]] == pos_abs[i])
-    diagdf2[i,2] = sum(lineup_abs_list[[i]] != pos_abs[i])
+    diagdf2[i,1]= sum(lineup_abs_list[[i]] == pos_abs[[i]])
+    diagdf2[i,2] = sum(lineup_abs_list[[i]] != pos_abs[[i]])
 
     diagdf <- cbind(diagdf1, diagdf2)
     names(diagdf) <- c("n11", "n21", "n12", "n22")
@@ -57,4 +86,3 @@ diag_param <- function(lineup_pres_list, lineup_abs_list, pos_pres, pos_abs){
   return(diagdf)
 }
 
-EDIT THIS! YOU NEED TO INCLUDE A LIST OF POSITIONS, NOT A VECTOR!
