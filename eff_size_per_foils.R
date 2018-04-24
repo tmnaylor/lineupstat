@@ -10,8 +10,10 @@
 #'es_foil_count(lineup_vec, susp_pos)
 #'@references Malpass, R S. (1981). Effective size and defendant bias in eyewitness
 #'            identification lineups. Law and Human Behavior, 5, 299-309.
+#'            Tredoux, C. G. (1998). Statistical inference on measures of lineup 
+#'            fairness. Law and Human Behavior, 22(2), 217-237.
 #'
-es_foil_count <- function(lineup_vec, susp_pos){
+eff_size_per_foils <- function(lineup_vec, susp_pos){
   ci <- lineup_boot_allprop(lineup_vec, susp_pos)
   k <- 1/length(susp_pos)
   ci_count <- cbind(ci[,1] <= k & ci[,2] >= k)
