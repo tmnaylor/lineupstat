@@ -118,11 +118,12 @@ diag_ratio_T <- function(lineup_pres, lineup_abs, pos_pres, pos_abs){
 # Variance of Tredoux diagnosticity ratio
 #Double check this
 var_diag_ratio <- function(lineup_pres, lineup_abs, pos_pres, pos_abs){
-    a <- sum(vec1  != pos_pres)
-    b <- sum(vec1 == pos_pres)*(length(lineup_pres))
-    c <- sum(vec2  != pos_abs)
-    d <- sum(vec2 == pos_abs)*(length(lineup_abs))
+    a <- sum(lineup_pres  != pos_pres)
+    b <- sum(lineup_pres == pos_pres)*(length(lineup_pres))
+    c <- sum(lineup_abs  != pos_abs)
+    d <- sum(lineup_abs == pos_abs)*(length(lineup_abs))
     e <- (a/b)+(c/d)
+    return(e)
 }
 
 # Wells diagnosticity ratio
@@ -134,7 +135,7 @@ var_diag_ratio <- function(lineup_pres, lineup_abs, pos_pres, pos_abs){
 
 diag_ratio_W <- function(lineup_pres, lineup_abs, pos_pres, pos_abs){
     a <- sum(lineup_pres == pos_pres)/(length(lineup_pres))
-    b <- sum(lineup_abs == pos_abs)/(length(lineup_pres))
+    b <- sum(lineup_abs == pos_abs)/(length(lineup_abs))
     c <- a/b
 }
 
@@ -197,12 +198,12 @@ chi_diag <- function(df, d_bar){
 
 
 homog_diag <- function(lineup_pres_list, lineup_abs_list, pos_pres, pos_abs){
-    linedf <- diag_param(adf1, adf2, apos1, apos2)
+    linedf <- diag_param(lineup_pres_list, lineup_abs_list, pos_pres, pos_abs)
     par1 <- ln_diag_ratio(linedf)
     par2 <- var_lnd(linedf)
     par3 <- d_weights(linedf)
     par4 <- cbind(par1, par2, par3)
-    par5 <- chi_diag(par4, d_bar(par4))
+    par5 <- chi_diag(par4)
     pchisq(par5, ncol(linedf)-1, lower.tail=F)
     
 }

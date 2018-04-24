@@ -1,9 +1,24 @@
-#Function to compute weights for diagnosticity ratios in k lineup pairs
+#'Diagnosticity ratio weights
+#'
+#'Function to compute weights of each diagnosticity ratio  for k lineup pairs
+#'@param linedf A dataframe of parameters for computing diagnosticity ratio
+#'@details linedf dataframe is computed using the diag_param helper function 
+#' 
+#'          diag_param returns a dataframe containing the following:
+#'          n11: Number of mock witnesses who identified the suspect in the target
+#'              present condition
+#'          n21: Number of mock witnesses who did not identify the suspect in the
+#'              target present condition
+#'          n12: Number of mock witnesses who identified the suspect in the target
+#'              absent condition
+#'          n13: Number of mock witnesses who did not identify the suspect in the
+#'              target absent condition
 
-d_weights <- function(df){
-    numerator   <- df$n11*df$n12*(df$n11+df$n21)*(df$n12+df$n22)
-    denominator <- df$n11*df$n22*(df$n11+df$n21)+
-                   df$n12*df$n21*(df$n12+df$n22)
+d_weights <- function(linedf){
+    numerator   <- linedf$n11*linedf$n12*(linedf$n11+linedf$n21)*
+                   (linedf$n12+linedf$n22)
+    denominator <- linedf$n11*linedf$n22*(linedf$n11+linedf$n21)+
+                   linedf$n12*linedf$n21*(linedf$n12+linedf$n22)
     wi <- numerator/denominator
     wi <- as.data.frame(wi)
     return(wi)

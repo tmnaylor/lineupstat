@@ -1,6 +1,14 @@
-# Function for computing pooled estimator from a set of k diagnosticity ratios
-# df must be a dataframe combining vectors of requisite paramater estimates 
-# (created in prev steps)
+#'Mean diagnosticity ratio for k lineup pairs
+#'
+#'Function for computing pooled estimator from a set of k diagnosticity ratios
+#'
+#'@param df A dataframe containing: ln(d), variance of ln(d), d weights
+#'@examples
+#'ratio <- ln_diag_ratio(linedf)  
+#'var <- var_lnd(linedf)
+#'wi <- d_weights(linedf)
+#'df <- cbind(ratio, var, wi)
+#'d_bar(df)
 
 d_bar <- function(df){
     numerator   <- sum(df$wi*df$lnd)

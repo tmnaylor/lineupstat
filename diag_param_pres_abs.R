@@ -1,9 +1,11 @@
-#Function to compute n11/12 and n21/22 from df of present/absent lineup choices
+#'Diagnosticity ratio parameters
+#'
+#'Function to compute n11/12 and n21/22 from df of present/absent lineup choices
 #function works for 2 dfs at a time - present/absent. 
 #Present & absent dfs must correspond (1:1)
 #Function takes 2 dataframes and 2 corresponding vectors of suspect positions 
 #(each column in df corresponds to row in vector)
-# OK THIS SEEMS TO WORK FINE
+#
 
 diag_param <- function(df1, df2, pos1, pos2){
     diagdf1 <- as.data.frame(matrix(ncol = 2, 
