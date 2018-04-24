@@ -1,4 +1,4 @@
-#'Effective Size?
+#'Effective Size per Foils
 #'
 #'Function for computing effective size (Malpass, 1981) counting foils who fall
 #'within the CI for chance guessing
