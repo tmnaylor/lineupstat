@@ -1,19 +1,8 @@
-#'Chi-squared estimate of homogeneity of diagnosticity ratio
+#' I Component of Effective Size(Tredoux, 1998)
 #'
-#'Function for getting chi-squared value for homogeneity of diagnosticity ratios
-#'@param df A dataframe containing: ln(d), variance of ln(d), d weights
-#'@details: To compute df, use the diag_param helper function
-#'          This function calls the d_bar function 
-#'@references Tredoux, C. G. (1998). Statistical inference on measures of lineup 
-#'            fairness. Law and Human Behavior, 22(2), 217-237.
-#'@examples
-#'ratio <- ln_diag_ratio(linedf)  
-#'var <- var_lnd(linedf)
-#'wi <- d_weights(linedf)
-#'df <- cbind(ratio, var, wi)
-#'chi_diag(df)
-#'
-#'@references Malpass, R. S. (1981). Effective size and defendant bias in
+#' Function for generating I component of effective size
+#' @param lineup_table A table of lineup choices
+#' @references Malpass, R. S. (1981). Effective size and defendant bias in
 #'            eyewitness identification lineups. Law and Human Behavior, 5(4), 299-309.
 #'
 #'            Malpass, R. S., Tredoux, C., & McQuiston-Surrett, D. (2007). Lineup
@@ -30,8 +19,7 @@
 #'            Wells, G. L.,Leippe, M. R., & Ostrom, T. M. (1979). Guidelines for
 #'            empirically assessing the fairness of a lineup. Law and Human Behavior,
 #'            3(4), 285-293.
-
-chi_diag <- function(df){
-    q <- sum(((df$lnd-log(d_bar(df)))^2)/(df$var))
-    return(q)
+#' @details
+i_T <- function(lineup_table){
+  i <- 1-(1/(sum(lineup_table)^2))*sum(lineup_table^2)
 }

@@ -1,7 +1,15 @@
-#Base function for computing bootstrapped lineup proportion for 1 lineup member
-#Takes vector of lineup choices and member position (single number) as inputs
-#E.g. boot(linevec, lineup_prop_pos_boot, 2, R = 1000)
-#Needs to be labelled more clearly
-lineup_prop_pos_boot <- function(linevec, d=d,  susp_pos){
-    sum(linevec[d] == susp_pos)/length(linevec)
+#'Bootstrapped lineup proportion
+#'
+#'Base function for computing bootstrapped lineup proportion for a lineup member
+#'@param lineup_vec A numeric vector of lineup choices
+#'@param d=d Bootstrap sample. Argument used by boot function to select samples for
+#'          bootstrapping
+#'@param susp_pos Suspect/lineup member position. Must be declared by user
+#'@seealso \code{\link[boot:boot]{boot}}: https://cran.r-project.org/web/packages/boot/boot.pdf
+#'@details Function to call when bootstrap resampling using boot function
+#'@references Davison,  A.C. & Hinkley,  D.V. (1997). Bootstrap methods and their
+#'            application. Cambridge University Press
+
+lineup_prop_boot <- function(lineup_vec, d,  susp_pos){
+    sum(lineup_vec[d] == susp_pos)/length(lineup_vec)
 }
