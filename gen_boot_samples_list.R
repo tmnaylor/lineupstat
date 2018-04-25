@@ -4,17 +4,22 @@
 #'@param lineup_list A list containing k vectors of lineup choices for k lineups,
 #'                        in which the target was either absent or present
 #'@param bootno Number of bootstrap samples
-#'@returns A list of bootstrapped data
-#'         Length of list = No. of boostrap sample draws
+#'@returns A list of bootstrapped lineup data
+#'         Length of list = no. of boostrap sample draws
 #'@example
+#'Data:
 #'A <-  round(runif(100,1,6))
 #'B <-  round(runif(100,1,6))
 #'C <-  round(runif(100,1,6))
+#'
 #'df <- cbind(A, B, C)
 #'df <- as.data.frame(df)
+#'
 #'lineup_list <- as.list(df)
 #'bootno <- 1000
-#'gen_boot_samples(linuep_list, bootno)
+#'
+#'Call:
+#'bootdata <- gen_boot_samples(linuep_list, bootno)
 
 gen_boot_samples_list <- function (lineup_list, bootno){
   lineup_boot_samples <- NULL
