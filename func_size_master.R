@@ -4,7 +4,7 @@
 #'and reporting results in some detail
 #'
 #'@param lineup_vec A numeric vector of lineup choices
-#'@param susp_pos Suspect/lineup member position. Must be declared by user
+#'@param target_pos A scalar, representing target position in lineup. Must be declared by user
 #'@seealso \code{\link[boot:boot]{boot}}: https://cran.r-project.org/web/packages/boot/boot.pdf
 #'@details Function calls functions from package 'boot'
 #'@references Davison,  A.C. & Hinkley,  D.V. (1997). Bootstrap methods and their
@@ -20,11 +20,11 @@
 #'            empirically assessing the fairness of a lineup. Law and Human Behavior,
 #'            3(4), 285-293.
 #'
-func_size_report <- function(lineup_vec, susp_pos){
+func_size_report <- function(lineup_vec, target_pos){
     cat ("\n")
-    temp1 <- boot(lineup_vec, func_size.boot, susp_pos=3, R=1000) 
+    temp1 <- boot(lineup_vec, func_size.boot, target_pos=3, R=1000) 
     temp2 <- boot.ci(temp1, type = c("norm","bca","perc"))  
-    cat ("Functional size of lineup is ",round(func_size(lineup_vec,susp_pos),3))
+    cat ("Functional size of lineup is ",round(func_size(lineup_vec,target_pos),3))
     cat ("\n")
     cat ("Confidence intervals [95%]")
     cat ("\n")

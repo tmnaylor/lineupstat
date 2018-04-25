@@ -4,21 +4,21 @@
 #'         ratio for several lineup pairs.
 #'
 #'@param lineup_pres_list A list containing k vectors of lineup choices for k lineups, in which the
-#'                        suspect was present
+#'                        target was present
 #'@param lineup_abs_list A list containing k vectors of lineup choices for k lineups, in which the
-#'                       suspect was absent
+#'                       target was absent
 #'@param pos_pres A list containing k numeric vectors indexing lineup member positions 
 #'                for the target present condition
 #'@param pos_abs A list containing k numeric vectors indexing lineup member positions 
 #'               for the target absent condition
 #'@returns A dataframe containing:
-#'         n11: Number of mock witnesses who identified the suspect in the target
+#'         n11: Number of mock witnesses who identified the target in the target
 #'              present condition
-#'         n21: Number of mock witnesses who did not identify the suspect in the
+#'         n21: Number of mock witnesses who did not identify the target in the
 #'              target present condition
-#'         n12: Number of mock witnesses who identified the suspect in the target
+#'         n12: Number of mock witnesses who identified the target in the target
 #'              absent condition
-#'         n13: Number of mock witnesses who did not identify the suspect in the
+#'         n13: Number of mock witnesses who did not identify the target in the
 #'              target absent condition
 #'@details Lineup pairs consist of one lineup in which the target was present (TP)
 #'         and one lineup in which the target was absent (TA).

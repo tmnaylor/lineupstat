@@ -3,7 +3,7 @@
 #'Function for getting chi-squared value for homogeneity of diagnosticity ratios
 #'@param df A dataframe containing: ln(d), variance of ln(d), d weights
 #'@details: To compute df, use the diag_param helper function
-#'          This function requires the d_bar function 
+#'          This function calls the d_bar function 
 #'@references Tredoux, C. G. (1998). Statistical inference on measures of lineup 
 #'            fairness. Law and Human Behavior, 22(2), 217-237.
 #'@examples

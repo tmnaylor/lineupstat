@@ -1,4 +1,4 @@
-#'Diagnosticity Ratio (Wells)
+#'Diagnosticity Ratio (Wells & Lindsay, 1980; Wells & Turtle, 1986)
 #'
 #'Computes Wells' diagnosticity ratio for one lineup pair
 #'

@@ -5,7 +5,9 @@
 #' @param printarg Defaults to FALSE. If TRUE, provides both Tredoux's (1998)
 #'                 calculation of effective size and Malpass's (1981) calculation 
 #'                 of effective size
-#' @details
+#' @details Reduces the size of a lineup from a (corrected) nominal starting
+#'          value by the degree to which members are, in sum, chosen below
+#'          the level of chance expectation.
 #' @references Malpass, R. S. (1981). Effective size and defendant bias in
 #'            eyewitness identification lineups. Law and Human Behavior, 5(4), 299-309.
 #'

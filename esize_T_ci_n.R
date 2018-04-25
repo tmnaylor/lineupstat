@@ -3,7 +3,10 @@
 #'
 #'Function for generating Effective Size (Tredoux, 1998) with CIs from normal theory
 #'@param lineup_table A table of lineup choices
-#'@details
+#'@param alpha Alpha level to be declared by user (scalar)
+#'@details Reduces the size of a lineup from a (corrected) nominal starting
+#'          value by the degree to which members are, in sum, chosen below
+#'          the level of chance expectation
 #'@references Malpass, R. S. (1981). Effective size and defendant bias in eyewitness
 #'                  identification lineups. Law and Human Behavior, 5(4), 299-309.
 #'
@@ -18,7 +21,14 @@
 #'
 #'             Wells, G. L., Leippe, M. R., & Ostrom, T. M. (1979). Guidelines for
 #'                  empirically assessing the fairness of a lineup. Law and Human Behavior, 3(4), 285-293.
+#'@examples
+#'Data:
+#'lineup_vec <- round(runif(100, 1, 6))
+#'lineup_table <- table(lineup_vec)
 #'
+#'Call:
+#'e_ci <- esize_T_ci_n(lineup_table, 0.05)
+#'e_ci <- esize_T_ci_n(lineup_table, 0.001)
 esize_T_ci_n <- function(lineup_table, alpha){
     N = sum(lineup_table)
     a <- 4/N

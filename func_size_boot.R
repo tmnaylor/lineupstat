@@ -3,8 +3,8 @@
 #'This function is a base function for the bootstrapping that ensues
 #'to compute the confidence intervals
 #'@param lineup_vec A numeric vector of lineup choices
-#'@param d indices for bootstrap resampling
-#'@param susp_pos Suspect/lineup member position. Must be declared by user
+#'@param d Iindices for bootstrap resampling
+#'@param susp_pos A scalar, representing position of target in lineup. Must be declared by user
 #'@seealso \code{\link[boot:boot]{boot}}: https://cran.r-project.org/web/packages/boot/boot.pdf
 #'@details Function to call when bootstrap resampling using boot function (in package 'boot')
 #'@references Davison,  A.C. & Hinkley,  D.V. (1997). Bootstrap methods and their
