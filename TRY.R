@@ -1,43 +1,25 @@
-library(boot);library(tidyverse)
-
-lineup_prop_pos_vec <- function(linevec, susp_pos){
-    sum(linevec == susp_pos)/length(linevec)
-}
-
-
-# This function takes a vector of lineup choices and for each member, calculates proportion:
-  
-    allprop <- function(linevec, susp_pos){
-        propvec <- as.data.frame(matrix(ncol= 1,
-                                        nrow = length(susp_pos)))
-        for (i in 1:length(susp_pos)){
-            propvec[i,]=lineup_prop_pos_vec(linevec, susp_pos[i])
-        }
-        return(propvec)
-    }
-
+library(boot);library(tidyverse);library(magrittr)
 
 
 lineup_prop_b <- function(linevec, d, susp_pos){
     sum(linevec[d] == susp_pos)/length(linevec)
 }
 
-xfun <- function(anyvec, susp_pos,...){
-         boot(anyvec, lineup_prop_b, susp_pos, R = 100) %>% 
-         boot.ci(type = "bca")
+lineup_boot_allprop <- function(avec, pos){
+    z <- map(pos,~boot(avec, lineup_prop_b, susp_pos = .x, R = 100) %>% 
+        boot.ci(type = "bca")) %>% 
+        map(extract, "bca") %>% 
+        map_df(extract,"bca")
+    
+    z2 <-  matrix(ncol = 6,nrow = 5, z$bca) %>% 
+            data.frame() %>% 
+            slice(4:5)
+    return(z2)
 }
-
-xfun(avec,susp_pos = 1)
-
-boot(avec, lineup_prop_b, susp_pos = 1, R = 100) %>% 
-             boot.ci(type = "bca")
-
-map(pos,~boot(avec, lineup_prop_b, susp_pos = .x, R = 100) %>% 
-    boot.ci(type = "bca") 
         
+        
+anvec <- round(runif(100,1,6))
+apos <- 1:6
 
-y <- boot.ci(x, type = "bca")
-y$bca[4:5]
-boot.ci(x, type = "bca")$bca[4:5]
-
+(lineup_boot_allprop(anvec,apos))
 

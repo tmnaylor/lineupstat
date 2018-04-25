@@ -25,6 +25,7 @@ na_acc <- rep(3, 33)
 df_na <- data.frame(na_conf, na_acc)
 names(df_na) <-  c("confidence","acc")
 dftot <- rbind(dfhits, dffalse, df_na)
+write_csv(dftot,"Mickes_Wixted_seqdata.csv")
 
 # Won't need all that stuff above, assume df will appear as dftot above
 
