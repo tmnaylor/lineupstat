@@ -33,11 +33,25 @@
 #'         
 #'         Data must be in a list format. This allows the function to compare 
 #'         lineups in which the number of choices and number of lineup members differs. 
-#'@references Tredoux, C. G. (1998). Statistical inference on measures of lineup 
-#'            fairness. Law and Human Behavior, 22(2), 217-237.
-#'@examples
+#'@references Malpass, R. S. (1981). Effective size and defendant bias in
+#'            eyewitness identification lineups. Law and Human Behavior, 5(4), 299-309.
 #'
-#'#Target present data
+#'            Malpass, R. S., Tredoux, C., & McQuiston-Surrett, D. (2007). Lineup
+#'            construction and lineup fairness. In R. Lindsay, D. F. Ross, J. D. Read,
+#'            & M. P. Toglia (Eds.), Handbook of Eyewitness Psychology, Vol. 2: Memory for
+#'            people (pp. 155-178). Mahwah, NJ: Lawrence Erlbaum Associates.
+#'
+#'            Tredoux, C. G. (1998). Statistical inference on measures of lineup fairness.
+#'            Law and Human Behavior, 22(2), 217-237.
+#'
+#'            Tredoux, C. (1999). Statistical considerations when determining measures of
+#'            lineup size and lineup bias. Applied Cognitive Psychology, 13, S9-S26.
+#'
+#'            Wells, G. L.,Leippe, M. R., & Ostrom, T. M. (1979). Guidelines for
+#'            empirically assessing the fairness of a lineup. Law and Human Behavior,
+#'            3(4), 285-293.
+#'@examples
+#'#Target present data:
 #'A <-  round(runif(100,1,6))
 #'B <-  round(runif(70,1,5))
 #'C <-  round(runif(20,1,4)) 
@@ -50,7 +64,7 @@
 #'pos_pres <- list(a1, b1, c1)
 #'rm(a1, b1, c1)
 #'
-#'Target absent data
+#'Target absent data:
 #'A <-  round(runif(100,1,6))
 #'B <-  round(runif(70,1,5))
 #'C <-  round(runif(20,1,4)) 
@@ -63,6 +77,7 @@
 #'pos_abs <- list(a1, b1, c1)
 #'rm(a1, b1, c1)
 #'
+#'Call:
 #'diag_param(lineup_pres_list, lineup_abs_list, pos_pres, abs_pres)
 
 diag_param <- function(lineup_pres_list, lineup_abs_list, pos_pres, pos_abs){

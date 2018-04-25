@@ -3,7 +3,7 @@
 #'Computes the proportion of mock witnesses identifying a particular lineup member
 #'@param lineup_table A table of lineup choices
 #'@param susp_pos Suspect/lineup member position. Must be declared by user
-#'@return Returns a proportion indicating the frequency with which a lineup
+#'@returns Returns a proportion indicating the frequency with which a lineup
 #'        member was selected
 #'@examples
 #'lineup_prop_vec(lineup_table, 3)

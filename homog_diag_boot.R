@@ -1,7 +1,6 @@
-#' Master function: Homogeneity of diagnosticity ratio
+#'Homogeneity of diagnosticity ratio with bootstrapped CIs
 #'
-#' This function provides assesses the homogeneity of the diagnosticity ratio of
-#'  k lineup pairs
+#'Function for computing bootstrapped estimates of homogeneity of diagnosticity ratio
 #'
 #'@param lineup_pres_list A list containing k vectors of lineup choices for k lineups, in which the
 #'                        target was present
@@ -11,8 +10,8 @@
 #'                present condition
 #'@param pos_abs A numeric vector indexing lineup member positions for the target
 #'               absent condition
-#'@details Computes diagnosticity ratio with chi-squared estimate and significance 
-#'         level for k lineup pairs
+#'@details Computes bootstrapped diagnosticity ratio with chi-squared estimate,
+#'         significance level and confidence intervals for k lineup pairs
 #'@references Malpass, R. S. (1981). Effective size and defendant bias in
 #'            eyewitness identification lineups. Law and Human Behavior, 5(4), 299-309.
 #'
@@ -30,48 +29,20 @@
 #'            Wells, G. L.,Leippe, M. R., & Ostrom, T. M. (1979). Guidelines for
 #'            empirically assessing the fairness of a lineup. Law and Human Behavior,
 #'            3(4), 285-293.
-#'@examples
-#'#Target present data:
-#'A <-  round(runif(100,1,6))
-#'B <-  round(runif(70,1,5))
-#'C <-  round(runif(20,1,4)) 
-#'lineup_pos_list <- list(A, B, C)
-#'rm(A, B, C)
-#'
-#'a1 <- c(1, 2, 3, 4, 5, 6)
-#'b1 <- c(1, 2, 3, 4, 5)
-#'c1 <- c(1, 2, 3, 4)
-#'pos_pres <- list(a1, b1, c1)
-#'rm(a1, b1, c1)
-#'
-#'Target absent data:
-#'A <-  round(runif(100,1,6))
-#'B <-  round(runif(70,1,5))
-#'C <-  round(runif(20,1,4)) 
-#'lineup_abs_list <- list(A, B, C)
-#'rm(A, B, C)
-#'
-#'a1 <- c(1, 2, 3, 4, 5, 6)
-#'b1 <- c(1, 2, 3, 4, 5)
-#'c1 <- c(1, 2, 3, 4)
-#'pos_abs <- list(a1, b1, c1)
-#'rm(a1, b1, c1)
-#'
-#'Call:
-#'homog_diag(lineup_pres_list, lineup_abs_list, pos_pres, abs_pres)   
-         
-homog_diag <- function(lineup_pres_list, lineup_abs_list, pos_pres, pos_abs){
-  linedf <- diag_param(lineup_pres_list, lineup_abs_list, pos_pres, pos_abs)
-  par1 <- ln_diag_ratio(linedf)
-  par2 <- var_lnd(linedf)
-  par3 <- d_weights(linedf)
-  par4 <- cbind(par1, par2, par3)
-  par5 <- chi_diag(par4)
-  par6 <- pchisq(par5, ncol(linedf)-1, lower.tail=F)
-  par7 <- d_bar(par4)
-  cat("Mean diagnosticity ratio:", par7)
-  cat("\n")
-  cat("Chi-square estimate (q):", par5)
-  cat("\n")
-  cat("Sig:",pchisq(par6))
+
+homog_diag_boot <- function(lineup_pres_list, lineup_abs_list, pos_pres, pos_abs, B){
+    pres_bootdf <- gen_boot_samples_list(lineup_pres_list, B)
+    abs_bootdf <- gen_boot_samples_list(lineup_abs_list, B)
+    linedf <- diag_param_boot(pres_bootdf, abs_bootdf, pos_pres, pos_abs)
+    par1 <- ln_diag_ratio(linedf)
+    par2 <- var_lnd(linedf)
+    par3 <- d_weights(linedf)
+    par4 <- cbind(par1, par2, par3)
+    par5 <- d_bar(par4)
+    par6 <- chi_diag(par4, par5)
+    cat("Mean diagnosticity ratio:", par5)
+    cat("\n")
+    cat("Chi-square estimate (q):", par6)
+    cat("\n")
+    cat("Sig:",pchisq(par6, ncol(linedf)-1, lower.tail=F))
 }
