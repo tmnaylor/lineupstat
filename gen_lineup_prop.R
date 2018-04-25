@@ -4,7 +4,7 @@
 #'@param lineup_boot_df Dataframe of lineup choices (usually a bootstrapped set)
 #'@param target_pos A scalar, representing target position in lineup. Must be declared by user
 #'@returns A vector of bootstrapped proportions
-#'#'@examples
+#'@examples
 #'lineup_boot_df <- gen_boot_samples(lineup_vec, 1000)
 #'target_pos <- 3
 #'gen_lineup_prop(lineup_boot_df, target_pos)

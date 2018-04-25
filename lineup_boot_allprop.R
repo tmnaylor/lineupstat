@@ -2,15 +2,16 @@
 #'
 #'Computes bootstrapped confidence intervals for lineup proportion
 #'@param lineup_vec A numeric vector of lineup choices
-#'@param susp_pos A numeric vector indexing all lineup members
-#'@return Returns a vector of bias corrected confidence intervals for lineup proportion
-#'        for each member in a lineup
+#'@param target_pos A numeric vector indexing all lineup members
+#'@return Returns a vector of bias corrected confidence intervals for 
+#'        lineup proportion for each member in a lineup
 #'@examples
 #'lineup_vec <- round(runif(100, 1, 6))
-#' susp_pos <- c(1, 2, 3, 4, 5, 6)
-#'lineup_boot_allprop(lineup_vec, susp_pos)
+#'target_pos <- c(1, 2, 3, 4, 5, 6)
+#'lineup_boot_allprop(lineup_vec, target_pos)
 #'@seealso \code{\link[boot:boot]{boot}}: https://cran.r-project.org/web/packages/boot/boot.pdf
-#'@details Function to call when bootstrap resampling using boot function (in package 'boot')
+#'@details Function that computes bootstrapped lineup proportion using 1000 bootstrap draws
+#'         Calls 'boot function in 'boot' package
 #'@references Davison,  A.C. & Hinkley,  D.V. (1997). Bootstrap methods and their
 #'            application. Cambridge University Press.
 #'            
@@ -18,8 +19,8 @@
 #'            assessing the fairness of a lineup. Law and Human Behavior, 3(4),
 #'            285-293.
 
-lineup_boot_allprop <- function(lineup_vec, susp_pos){
-  z <- map(pos,~boot(lineup_vec, lineup_prop_boot, susp_pos = .x, R = 1000) %>%
+lineup_boot_allprop <- function(lineup_vec, target_pos){
+  z <- map(pos,~boot(lineup_vec, lineup_prop_boot, target_pos = .x, R = 1000) %>%
              boot.ci(type = "bca")) %>%
     map(magrittr::extract, "bca") %>%
     map_df(magrittr::extract,"bca")
