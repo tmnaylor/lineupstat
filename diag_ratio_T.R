@@ -5,8 +5,8 @@
 #'                   the target was present
 #'@param lineup_abs A numeric vector of lineup choices for a lineup in which
 #'                   the target was absent
-#'@param pos_pres Target position in TP lineup. Must be declared by user
-#'@param pos_abs Target position in TA lineup. Must be declared by user
+#'@param pos_res A scalar, representing target position in TP lineup. Must be declared by user
+#'@param pos_abs A scalar, representing target position in TA lineup. Must be declared by user
 #'@references Malpass, R. S. (1981). Effective size and defendant bias in
 #'            eyewitness identification lineups. Law and Human Behavior, 5(4), 299-309.
 #'
@@ -25,11 +25,15 @@
 #'            empirically assessing the fairness of a lineup. Law and Human Behavior,
 #'            3(4), 285-293.
 #'@examples
+#'Data:
 #'lineup_pres <- round(runif(100, 1, 6))
-#'lineup_abs <- round(runif(100, 1, 6))
-#'pos_pres <- c(1, 2, 3, 4, 5, 6)
-#'pos_abs <- c(1, 2, 3, 4, 5, 6)
+#'lineup_abs <- round(runif(70, 1, 5))
+#'pos_pres <- 3
+#'pos_abs <- 5
+#'
+#'Call:
 #'diag_ratio_T(lineup_pres, lineup_abs, pos_pres, pos_abs)
+#'#'diag_ratio_T(lineup_pres, lineup_abs, 3, 5)
 
 diag_ratio_T <- function(lineup_pres, lineup_abs, pos_pres, pos_abs){
     a <- (sum(lineup_pres == pos_pres) + 0.5)/(length(lineup_pres) + 0.5)

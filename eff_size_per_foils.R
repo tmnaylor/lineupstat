@@ -5,8 +5,11 @@
 #'@param lineup_vec A numeric vector of lineup choices
 #'@param susp_pos A numeric vector indexing all lineup members
 #'@examples
+#'Data:
 #'lineup_vec <- round(runif(100, 1, 6))
-#' susp_pos <- c(1, 2, 3, 4, 5, 6)
+#'susp_pos <- c(1, 2, 3, 4, 5, 6)
+#'
+#'Call:
 #'es_foil_count(lineup_vec, susp_pos)
 #'@references Malpass, R S. (1981). Effective size and defendant bias in eyewitness
 #'            identification lineups. Law and Human Behavior, 5, 299-309.

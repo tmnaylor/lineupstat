@@ -30,6 +30,9 @@
 #'         For a lineup pair A that consists of (1)TP lineup and (2)TA lineup:
 #'         A(1) is the first vector in the TP list
 #'         A(2) is the first vector in the TP list
+#'         
+#'         Data must be in a list format. This allows the function to compare 
+#'         lineups in which the number of choices and number of lineup members differs. 
 #'@references Tredoux, C. G. (1998). Statistical inference on measures of lineup 
 #'            fairness. Law and Human Behavior, 22(2), 217-237.
 #'@examples

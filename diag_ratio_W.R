@@ -6,14 +6,18 @@
 #'                   the target was present
 #'@param lineup_abs A numeric vector of lineup choices for a lineup in which
 #'                   the target was absent
-#'@param pos_pres Target position in TP lineup. Must be declared by user
-#'@param pos_abs Target position in TA lineup. Must be declared by user
+#'@param pos_pres A scalar, representing target position in TP lineup. Must be declared by user
+#'@param pos_abs A scalar, representing target position in TA lineup. Must be declared by user
 #'@examples
+#'Data:
 #'lineup_pres <- round(runif(100, 1, 6))
-#'lineup_abs <- round(runif(100, 1, 6))
-#'pos_pres <- c(1, 2, 3, 4, 5, 6)
-#'pos_abs <- c(1, 2, 3, 4, 5, 6)
+#'lineup_abs <- round(runif(70, 1, 5))
+#'pos_pres <- 3
+#'pos_abs <- 5
+#'
+#'Call:
 #'diag_ratio_W(lineup_pres, lineup_abs, pos_pres, pos_abs)
+#'#'diag_ratio_W(lineup_pres, lineup_abs, 3, 5)
 #'@references Wells, G. L., & Lindsay, R. C. L. (1980).On estimating the diagnosticity 
 #'            of eyewitness nonidentifications.Psychological Bulletin, 88, 776-784.
 #'
