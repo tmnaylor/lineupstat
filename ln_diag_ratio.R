@@ -30,7 +30,15 @@
 #'            Wells, G. L.,Leippe, M. R., & Ostrom, T. M. (1979). Guidelines for
 #'            empirically assessing the fairness of a lineup. Law and Human Behavior,
 #'            3(4), 285-293.
-
+#'@details Use diag_param helper function to get linedf: produces a dataframe containing
+#'          the parameters needed to calculate diagnosticity ratio (see documentation for 
+#'           diag_param)
+#'@examples
+#'Data:
+#'linedf <- diag_param(lineup_pres_list, lineup_abs_list, pos_pres, abs_pres)
+#'
+#'Call:
+#'lnd <- ln_diag_ratio(linedf)
 ln_diag_ratio <- function(linedf){
     d   <- (linedf$n11+0.5/((linedf$n11+linedf$n21)+0.5))/
            (linedf$n12+0.5/((linedf$n12+linedf$n22)+0.5))

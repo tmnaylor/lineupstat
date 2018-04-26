@@ -8,7 +8,7 @@
 #'                Must be declared by user
 #'@return Returns a vector of lineup choices
 #'@examples
-#'gen_linevec_table(lineup_table, 3)
+#'lineup_vec <- gen_linevec_table(lineup_table, 3)
 
 gen_linevec_table <- function (lineup_table, nom_size){
   line_index <- 1:(length(lineup_table))

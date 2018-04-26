@@ -4,8 +4,7 @@
 #' 
 #' @param linedf A dataframe of parameters for computing diagnosticity ratio
 #' @details linedf dataframe is computed using the diag_param helper function 
-#' 
-#'          diag_param returns a dataframe containing the following:
+#'          diag_param: returns a dataframe containing the following:
 #'          n11: Number of mock witnesses who identified the suspect in the target
 #'              present condition
 #'          n21: Number of mock witnesses who did not identify the suspect in the
@@ -14,7 +13,6 @@
 #'              absent condition
 #'          n13: Number of mock witnesses who did not identify the suspect in the
 #'              target absent condition
-#'
 #'@references Malpass, R. S. (1981). Effective size and defendant bias in
 #'            eyewitness identification lineups. Law and Human Behavior, 5(4), 299-309.
 #'
@@ -32,6 +30,14 @@
 #'            Wells, G. L.,Leippe, M. R., & Ostrom, T. M. (1979). Guidelines for
 #'            empirically assessing the fairness of a lineup. Law and Human Behavior,
 #'            3(4), 285-293.
+#'@details Use diag_param helper function to get linedf: produces a dataframe containing
+#'         the parameters needed to calculate diagnosticity ratio (see documentation for 
+#'         diag_param)
+#'         
+#'         Calls var_d function
+#'@examples
+#'linedf <- diag_param(lineup_pres_list, lineup_abs_list, pos_pres, abs_pres)
+#'var_lnd <- var_lnd(linedf)
 var_lnd <- function(linedf){
     var <- (linedf$n21/(linedf$n11+(linedf$n11+linedf$n21)))+
         (linedf$n22/(linedf$n12+(linedf$n12+linedf$n22)))

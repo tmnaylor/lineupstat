@@ -33,7 +33,7 @@
 #'
 #'Call:
 #'diag_ratio_T(lineup_pres, lineup_abs, pos_pres, pos_abs)
-#'#'diag_ratio_T(lineup_pres, lineup_abs, 3, 5)
+#'diag_ratio_T(lineup_pres, lineup_abs, 3, 5)
 
 diag_ratio_T <- function(lineup_pres, lineup_abs, pos_pres, pos_abs){
     a <- (sum(lineup_pres == pos_pres) + 0.5)/(length(lineup_pres) + 0.5)

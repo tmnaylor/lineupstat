@@ -1,20 +1,12 @@
 #' Variance of diagnosticity ratio (Tredoux)
 #'
-#' Computes the variance of the diagnosticity ratio for a lineup pair
+#'Computes the variance of the diagnosticity ratio for a lineup pair
 #'@param lineup_pres A numeric vector of lineup choices for a lineup in which
 #'                   the target was present
 #'@param lineup_abs A numeric vector of lineup choices for a lineup in which
 #'                   the target was absent
-#'@param pos_pres Target position in TP lineup. Must be declared by user
-#'@param pos_abs Target position in TA lineup. Must be declared by user
-#'@examples
-#'
-#'#'lineup_pres <- round(runif(100, 1, 6))
-#'lineup_abs <- round(runif(100, 1, 6))
-#'pos_pres <- c(1, 2, 3, 4, 5, 6)
-#'pos_abs <- c(1, 2, 3, 4, 5, 6)
-#'var_diag_ratio_T(lineup_pres, lineup_abs, pos_pres, pos_abs)
-#'
+#'@param pos_pres A scalar, representing target position in TP lineup. Must be declared by user
+#'@param pos_abs A scalar, representing target position in TA lineup. Must be declared by user
 #'@references Malpass, R. S. (1981). Effective size and defendant bias in
 #'            eyewitness identification lineups. Law and Human Behavior, 5(4), 299-309.
 #'
@@ -32,6 +24,16 @@
 #'            Wells, G. L.,Leippe, M. R., & Ostrom, T. M. (1979). Guidelines for
 #'            empirically assessing the fairness of a lineup. Law and Human Behavior,
 #'            3(4), 285-293.
+#'@examples
+#'Data:
+#'lineup_pres <- round(runif(100, 1, 6))
+#'lineup_abs <- round(runif(100, 1, 6))
+#'pos_pres <- 3
+#'pos_abs <- 4
+#'
+#'Call:
+#'var_d <- var_diag_ratio_T(lineup_pres, lineup_abs, pos_pres, pos_abs)
+#'var_d <- var_diag_ratio_T(lineup_pres, lineup_abs, 3, 4)
 
 var_diag_ratio <- function(lineup_pres, lineup_abs, pos_pres, pos_abs){
     a <- sum(lineup_pres  != pos_pres)
