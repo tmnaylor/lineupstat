@@ -1,0 +1,91 @@
+---
+title: "My Notes"
+output: html_notebook
+---
+#Test data      
+```{r}
+library(tidyverse)
+linetable <- lineup_tables$lineup_1_table
+linedata <- lineup_data_raw$lineup_1_data
+
+A <-  round(runif(100,1,6)) 
+B <- round(runif(100, 1, 6))
+df <- cbind(A, B)
+df <- as.data.frame(df)
+```
+
+#1
+```{r}
+
+library(pacman)
+p_load(tidyverse, magrittr)
+
+
+#Function for taking a vector representing frequencies
+# of choices per foil (ie a 1d array), for varying lineups sizes, and creating
+# a vector of individual choices of lineup members.  Lineup size has to 
+# be declared explicitly, since there could be zero foil choices
+
+# First make a function that repeats a number k times
+rep_index <- function(index,num){
+    rep(index, num) #Takes an index in a table/list and repeats it k times
+}
+
+rep_index(4, 10)
+```
+Why would you want to do this?
+
+#2
+```{r}
+gen_linevec_table <- function (line_table, nom_size){ 
+    line_index <- 1:(length(line_table))   
+    #Makes a vector of numbers for number of cells in table
+    #E.g., table with 8 cells --> vector c(1, 2, 3, 4, 5, 6, 7, 8)
+    map2(line_index, line_table, rep_index) %>% unlist
+    #Turns numbers in vectors into their own vectors 
+    #1 in line_index vector becomes a vector in list
+    #Then takes numbers in table and associates them with corresponding vector
+    #Then uses rep_index to multiply each position/choice by number of times it occurs in table
+    #So rep_index essentially multiplies the first function by the second
+    #Unlists them so that they become all one vector
+    #Result is a vector of individual choices
+}
+
+```
+
+#3
+```{r}
+gen_boot_samples <- function (linevec, bootno){
+    names_a <- rep("sample_",bootno)
+    names_b <- as.character(1:bootno)
+    bootno %>% rerun(sample(linevec, length(linevec), replace = TRUE))  -> x 
+    #sample fx: takes a sample of original data and repeats it for length of vector
+    #rerun - does this several times, replace - sampling with replacement
+    names(x) <- paste(names_a,names_b,sep = "")
+    lineup_boot_samples <- map_df(x, extract, c(1:length(linevec)))
+}
+ 
+```
+#4
+```{r}
+#Function computes no. of people who chose the suspect (or any specified foil)
+lineup_prop_pos <- function (lineup_table,susp_pos){
+    # lineup_table = table(lineup_vec)
+    lineup_table[susp_pos]/sum(lineup_table)   
+}
+
+```
+#5
+```{r}
+gen_lineup_prop <- function (lineup_boot_df, susp_pos){
+    map(lineup_boot_df,~table(.)) %>% 
+    map_dbl(., ~ lineup_prop_pos(.,susp_pos))
+}
+
+#Takes bootstrapped df
+#Makes table that counts number of times member chosen over whole boot df
+#Finds proportion of people who chose suspect/member over whole df
+```
+
+#6
+

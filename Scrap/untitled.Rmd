@@ -1,0 +1,50 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+ #Function for computing Effective Size (Malpass, 1981)
+# counting foils who fall within the CI for chance guessing
+
+
+#Apply this fx to a bootstrapped df
+#Get proportion for each choice
+
+gen_lineup_prop <- function (lineup_boot_df, susp_pos){
+    map(lineup_boot_df,~table(.)) %>% 
+    map_dbl(., ~ lineup_prop_pos(.,susp_pos))
+}
+
+Function for computing arbitrary percentile of boot proportion
+# assuming a bootstrap sample df, and perc as argument
+gen_boot_propci <- function (lineuprops, perc=.05){
+    if(perc >= 0 & perc <= 1) {
+        quantile(lineuprops, probs = perc)
+    }
+    else {
+        cat("Illegal value entered (must be proportion)")
+    }
+}
+```
+##OR
+
+```{r}
+esize_m <- function (linetable, printarg=FALSE){
+    k <- length(linetable)
+    ea <- sum(linetable)/k
+    x <- sum(abs(linetable-ea)/(2*ea))
+    esize_ma = k-x
+    esize_ma
+}
+
+gen_esize_m <- function (linetable, d=d){
+        map_dbl(linetable[d], ~ esize_m(.))
+}
+
+bootesize <- boot(linetable, gen_esize_m, R=10)
+bootesize
+
+esize_m(linetable)
+```
+

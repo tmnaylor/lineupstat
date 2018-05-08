@@ -2,8 +2,9 @@
 #'
 #'Function to compute ci high for each foil in a lineup
 #'@param lineuptabprops A dataframe of bootstrapped lineup proportions
-#'@param sumlineup
-#'@details see Malpass, 1981
+#'@param sumlineup Number of members in a lineup
+#'@references Malpass, R. S. (1981). Effective size and defendant bias in
+#'            eyewitness identification lineups. Law and Human Behavior, 5(4), 299-309.
 
 allfoil_cihigh <- function(linetabprops, sumlineup){
     z <- 1:length(linetabprops)

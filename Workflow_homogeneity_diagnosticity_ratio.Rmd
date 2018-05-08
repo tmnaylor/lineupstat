@@ -108,7 +108,8 @@ var <- var_lnd(linedf)
 
 ```{r}
 d_weights <- function(df){
-    numerator <- df$n11*df$n12*(df$n11+df$n21)*(df$n12+df$n22)
+    numerator <- df$n11*df$n12*(df$n11+df$n21)*
+        (df$n12+df$n22)
     denominator <- df$n11*df$n22*(df$n11+df$n21)+
         df$n12*df$n21*(df$n12+df$n22)
     wi <- numerator/denominator
@@ -118,7 +119,7 @@ d_weights <- function(df){
 }
 
 wi <- d_weights(linedf)
-
+wi
 ```
 
 #Step 5: Combine vectors for lnd, var(lnd) and wi into one df
@@ -136,17 +137,17 @@ d_bar <- function(df){
     return(d_bar)
 }
 
-d_bar <- d_bar(param2)
 ```
 
 #Step 7: Get chi squared value
 ```{r}
-chi_diag <- function(df, d_bar){
-    q <- sum(((df$lnd-log(d_bar))^2)/(df$var))
+chi_diag <- function(df){
+    q <- sum(((df$lnd-log(d_bar(df)))^2)/(df$var))
     return(q)
 }
 
-q <- chi_diag(param2, d_bar)
+q <- chi_diag(param2)
+q
     
 ```
 

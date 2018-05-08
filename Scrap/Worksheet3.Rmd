@@ -1,0 +1,62 @@
+---
+title: "Workflow homog 3"
+output: html_notebook
+---
+
+#Prelim: Make test data -- store as a list
+```{r}
+
+
+```
+
+```{r}
+diag_param <- function(list1, pos1){
+    diagdf1 <- as.data.frame(matrix(ncol = 2, 
+                                    nrow = length(list1)))
+    
+    for (i in 1:length(list1)){
+        diagdf1[i,1]= sum(list1[[i]] == pos1[i])
+        diagdf1[i,2] = sum(list1[[i]] != pos1[i])
+        
+    }
+  
+    return(diagdf1)
+}
+
+sum(list1[[1]] == pos1[1])
+
+a <- diag_param(list1, pos1)
+
+length(list1)
+```
+
+
+```{r}
+diag_param <- function(list1, list2, pos1, pos2){
+    diagdf1 <- as.data.frame(matrix(ncol = 2, 
+                                    nrow = length(list1)))
+    
+    for (i in 1:length(list1)){
+        diagdf1[i,1]= sum(list1[[i]] == pos1[i])
+        diagdf1[i,2] = sum(list1[[i]] != pos1[i])
+        
+        
+    }
+    
+    diagdf2 <- as.data.frame(matrix(ncol = 2, 
+                                        nrow = length(list2)))
+    for (i in 1:length(list2)){
+        diagdf2[i,1]= sum(list2[[i]] == pos2[i])
+        diagdf2[i,2] = sum(list2[[i]] != pos2[i]) 
+        
+        diagdf <- cbind(diagdf1, diagdf2)
+        names(diagdf) <- c("n11", "n21", "n12", "n22")
+        
+    }
+    return(diagdf)
+}
+
+linedf <- diag_param(list1, list2, pos1, pos2)
+
+```
+

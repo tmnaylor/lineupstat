@@ -35,7 +35,7 @@
 #'A <-  round(runif(100,1,6))
 #'B <-  round(runif(70,1,5))
 #'C <-  round(runif(20,1,4)) 
-#'lineup_pos_list <- list(A, B, C)
+#'lineup_pres_list <- list(A, B, C)
 #'rm(A, B, C)
 #'
 #'a1 <- c(1, 2, 3, 4, 5, 6)

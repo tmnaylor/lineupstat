@@ -1,0 +1,191 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+#Test code
+```{r}
+linedata <- lineup_data_raw$lineup_1_data
+linetab <- table(linedata)
+
+pos <- c(1, 2, 3, 4, 5, 6, 7, 8)
+
+library(pacman)
+p_load(tidyverse, magrittr, purrr, boot, slipper)
+
+
+```
+
+```{r}
+#Need this fx
+lineup_prop_pos_vec <- function(linevec, susp_pos){
+    sum(linevec == susp_pos)/length(linevec)
+}
+```
+
+
+```{r}
+#Function for computing proportion for each lineup member
+#What about cases in which a member wasn't chosen at all? Data should reflect this - how?
+#What about cases in which mock witness chose no one?
+allprop <- function(linevec, susp_pos){
+    propvec <- as.data.frame(matrix(ncol= 1,
+                                    nrow = length(susp_pos)))
+    for (i in 1:length(susp_pos)){
+       propvec[i,]=lineup_prop_pos_vec(linevec, susp_pos[i])
+    }
+    return(propvec)
+}
+
+allprop(linedata, pos)
+```
+
+
+```{r}
+#Attempting to bootstrap fx above
+allprop_boot <- function(linevec, d, susp_pos){
+    propvec <- as.data.frame(matrix(ncol= 1,
+                                    nrow = length(susp_pos)))
+    for (i in 1:length(susp_pos)){
+       propvec[i,]=lineup_prop_pos_vec(linevec, susp_pos[i])
+    }
+    return(propvec)
+}
+
+bootfx <- boot(linedata, allprop_boot, susp_pos = pos, R=100)
+
+```
+
+Alternatively, change format of function
+
+is there a way to loop through susp pos without using a loop?
+Could add argument like: for each unique value in df
+```{r}
+lineup_prop_pos_a<- function(linevec){
+    pos <- sort(unique(linevec))
+    for (i in 1:length(pos)){
+    df[i,]= sum(linevec == pos[i])/length(linevec)
+    }
+    return(df)
+}
+
+lineup_prop_pos_a(linedata)
+
+lineup_prop_pos_a<- function(linevec, d){
+    pos <- sort(unique(linevec))
+    d <- linevec
+    for (i in 1:length(pos)){
+    df[i,]= sum(linevec == pos[i])/length(linevec)
+    }
+    return(df)
+}
+
+
+
+```
+ you will be running the bootstrap 1000 x k times
+
+
+lineup_boot <- function(linevec, d=d,  susp_pos){
+    sum(linevec[d] == susp_pos)/length(linevec)
+}
+
+then 
+
+boot(linevec, lineup_boot, 1, R=1000)
+boot(linevec, lineup_boot, 2, R=1000)
+boot(linevec, lineup_boot, 3, R=1000)
+etc, to end of pos
+
+
+
+
+```{r}
+list1 <- list(linedata, pos)
+```
+
+
+```{r}
+#Same fx above, but takes a list
+allprop_list <- function(list){
+    propvec <- as.data.frame(matrix(ncol= 1,
+                                    nrow = length(list[[2]])))
+    for (i in 1:length(list[[2]])){
+       propvec[i,]= sum(list[[1]] == list[[2]][i])/length(list[[1]])
+}
+    return(propvec)
+}
+
+all_props <- allprop_list(list1)
+```
+
+```{r}
+allprop_list_boot <- function(list, d){
+    d <- list[[1]]
+ return(allprop_list(list[d]))
+}
+
+bootfx3 <- boot(list1, allprop_list_boot, R=100)
+
+
+```
+
+
+```{r}
+#Fx for finding bootstrapped ci of proportion for 1 lineup member
+lineup_prop_pos_vec_boot <- function(linevec, d=d,  susp_pos){
+    sum(linevec[d] == susp_pos)/length(linevec)
+}
+
+bootfx2 <- boot(linedata, lineup_prop_pos_vec_boot, susp_pos =3, R=1000)
+
+bootfx2
+boot.ci(bootfx2, type = "all")
+```
+
+```{r}
+esize_m_boot <- function (linevec, d, printarg=FALSE){
+    linetable <- table(linevec[d])
+    k <- length(linetable)
+    ea <- sum(linetable)/k
+    x <- sum(abs(linetable-ea)/(2*ea))
+    esize_ma = k-x
+    ka <- sum(linetable!=0)
+    linetable_a <- linetable[linetable!=0]
+    ea <- (sum(linetable))/ka
+    xa <- sum(abs(linetable_a-ea)/(2*ea))
+    esize_ma_a = ka-xa
+    if (printarg) {
+        cat("Effective size (Malpass, 1981) = ", esize_ma_a,"\n")
+        cat("Effective size (Malpass, 1981,","\n", 
+            "            adj Tredoux, 1998) = ", esize_ma, "\n")
+    }
+    esize_ma
+}
+
+boot_esize <- boot(linedata, esize_m_vec, R=1000)
+ci <- boot.ci(boot_esize, type = "all")
+boot_esize
+ci
+```
+So now we can say that if lineup is unbiased, probability that any member/suspect is chosen is = 1/5.962406
+
+```{r}
+1/boot_esize$t0
+```
+So CI for chance guessing = 1/5.650 and 1/6.594
+
+```{r}
+1/ci$normal[2:3]
+
+```
+CI for chance guessing = 0.18 and 0.15
+
+What we're trying to figure out - were any lineup members selected at a rate greater or smaller than this?
+
+```{r}
+all_props
+```
+A) Do we compare bootstrapped prop to CI above?
+or do we compare ci of bootstrapped prop to CI above?
+
+0.22+

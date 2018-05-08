@@ -1,0 +1,92 @@
+---
+title: "Worksheet"
+output: html_notebook
+---
+#Making test data
+```{r}
+#Creating vector 1
+vvec <- round(runif(100,1,6)) #Present lineup
+vvec <- vvec[vvec %in% 1:6]
+ltab <- table(vvec)
+
+#Creating vector 2
+yvec <- round(runif(100,1,6)) #Absent lineup
+yvec <- yvec[yvec %in% 1:6]
+ztab <- table(yvec)
+
+#Making test df
+
+A <-  round(runif(100,1,6)) #Present 
+
+B <-  round(runif(100,1,6)) #Absent 
+
+C <-  round(runif(100,1,6)) #Present 
+
+D <-  round(runif(100,1,6)) #Absent
+
+E <-  round(runif(100,1,6)) #Present 
+
+F <-  round(runif(100,1,6)) #Absent
+
+df <- cbind(A, B, C, D, E, F)
+df <- as.data.frame(df)
+rm(A, B, C, D, E, F)
+```
+
+```{r}
+my_mean <- function(df1){
+    df2 <- NULL
+    for (i in seq(1, length(df), by =2)){
+    df2[i] <- mean(df1[i])
+    }
+}
+
+```
+
+```{r}
+myfun3 <- function(df, x, t)
+{
+    diag_ratio_T <- function(vec1, vec2, x, t){
+    a <- (sum(vec1 == x)+0.5)/(t+0.5)
+    b <-(sum(vec2 == x)+0.5)/(t+0.5)
+    c <- a/b
+    }
+    
+    v <- NULL
+for (i in 1:nrow(df){
+    v[i] <- diag_ratio_T(df[i], df[i+1], x, t)
+    i = i+1
+}
+    return(x)
+}
+
+myfun3(df, 4, t)
+```
+
+
+
+
+
+
+
+
+
+```{r}
+myfun3 <- function(df, x, t)
+{
+    diag_ratio_T <- function(vec1, vec2, x, t){
+    a <- (sum(vec1 == x)+0.5)/(t+1.5)
+    b <-(sum(vec2 == x)+0.5)/(t+2.5)
+    c <- a/b
+    }
+    
+    v <- NULL
+for (i in seq(1, length(df), 2)){
+    v <- diag_ratio_T(df[2i+1], df[2i+2], x, t)
+}
+    return(x)
+}
+
+myfun3(df, 4, t)
+```
+
